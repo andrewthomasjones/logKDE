@@ -1,10 +1,10 @@
-//[[Rcpp::plugins(cpp11)]]
-//[[Rcpp::depends(Rcpp)]]
-//[[Rcpp::depends(BH)]]
+// [[Rcpp::depends(Rcpp)]]
+// [[Rcpp::plugins("cpp11")]]
 
 
 //'@importFrom Rcpp sourceCpp
 //'@useDynLib logKDE
+//'
 //'
 #include <Rcpp.h>
 #include <vector>
@@ -12,14 +12,7 @@
 #include <algorithm>
 #include <math.h>
 
-
-#include <boost/accumulators/accumulators.hpp>
-#include <boost/accumulators/statistics/moment.hpp>
-#include <boost/accumulators/statistics/variance.hpp>
-#include <boost/bind.hpp>
-
 using namespace Rcpp;
-using namespace boost::accumulators;
 
 
 // [[Rcpp::export]]
@@ -118,13 +111,13 @@ double KDE_u(double x, std::vector<double> xi, double h){
 
 
 //silvermans rule of thumb for bandwidth
-// [[Rcpp::export]]
-double silverman(std::vector<double> x){
-  accumulator_set<double, features<tag::variance(lazy)>> acc;
-  for_each(x.begin(), x.end(), boost::bind<void> (boost::ref(acc), _1));
-  return 1.06*sqrt(variance(acc))*std::pow((x.size()),-0.2);
-
-}
+//// [[Rcpp::export]]
+// double silverman(std::vector<double> x){
+//   accumulator_set<double, features<tag::variance(lazy)>> acc;
+//   for_each(x.begin(), x.end(), boost::bind<void> (boost::ref(acc), _1));
+//   return 1.06*sqrt(variance(acc))*std::pow((x.size()),-0.2);
+//
+// }
 
 
 // [[Rcpp::export]]

@@ -149,17 +149,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// silverman
-double silverman(std::vector<double> x);
-RcppExport SEXP _logKDE_silverman(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::vector<double> >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(silverman(x));
-    return rcpp_result_gen;
-END_RCPP
-}
 // logKDE
 std::vector<double> logKDE(const std::vector<double>& input, const std::vector<double>& support, double h, std::string method);
 RcppExport SEXP _logKDE_logKDE(SEXP inputSEXP, SEXP supportSEXP, SEXP hSEXP, SEXP methodSEXP) {
@@ -188,7 +177,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_logKDE_KDE_t", (DL_FUNC) &_logKDE_KDE_t, 3},
     {"_logKDE_KDE_la", (DL_FUNC) &_logKDE_KDE_la, 3},
     {"_logKDE_KDE_u", (DL_FUNC) &_logKDE_KDE_u, 3},
-    {"_logKDE_silverman", (DL_FUNC) &_logKDE_silverman, 1},
     {"_logKDE_logKDE", (DL_FUNC) &_logKDE_logKDE, 4},
     {NULL, NULL, 0}
 };

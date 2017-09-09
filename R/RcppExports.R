@@ -4,6 +4,7 @@
 #'@importFrom Rcpp sourceCpp
 #'@useDynLib logKDE
 #'
+#'
 NULL
 
 epanechnikov <- function(x) {
@@ -52,10 +53,6 @@ KDE_la <- function(x, xi, h) {
 
 KDE_u <- function(x, xi, h) {
     .Call('_logKDE_KDE_u', PACKAGE = 'logKDE', x, xi, h)
-}
-
-silverman <- function(x) {
-    .Call('_logKDE_silverman', PACKAGE = 'logKDE', x)
 }
 
 logKDE <- function(input, support, h, method = "uniform") {
