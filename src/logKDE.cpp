@@ -59,9 +59,9 @@ double logTriangular(double x){
 
 
 // [[Rcpp::export]]
-double logUniform(double x){
+double uniform(double x){
   double bound = sqrt(3);
-  double y=(1/(2*bound*x))*(x>(-1*bound))*(x<(1*bound));
+  double y=(1/(2*bound))*(x>(-1*bound))*(x<(1*bound));
   return y;
 }
 
@@ -70,17 +70,8 @@ double logUniform(double x){
 double KDE(double x, std::vector<double> xi, double h){
   int n = xi.size();
   std::vector<double> tmp(n);
-
-  // for(std::vector<double>::iterator it = xi.begin(); it != xi.end(); ++it) {
-  //
-  //   Rcout << "x "<< x << " xi "<< *it << " h "<< h << std::endl;
-  //   Rcout << (x-*it)/h << std::endl;
-  //   Rcout << logGaussian(((x-*it)/h)) << std::endl;
-  // }
-
-  std::transform(xi.begin(), xi.end(), tmp.begin(), [h, x](double xi){return logLaplace(((x-xi)/h));});
+  std::transform(xi.begin(), xi.end(), tmp.begin(), [x,h](double xi){return uniform((x-xi)/h);});
   double dens_x = (1/(n*h))*std::accumulate(tmp.begin(), tmp.end(), 0.0);
-  Rcout << dens_x << std::endl;
   return(dens_x);
 }
 
@@ -116,7 +107,7 @@ std::vector<double> logKDE(const std::vector<double>& input, const std::vector<d
   //Rcout<< "h = " << h << std::endl;
   //do kernels
   std::transform(X.begin(), X.end(), ret.begin(), [h, xi](double X){return KDE(X, xi, h);});
-
-  return ret;
+  std::transform( ret.begin(), ret.end(),support.begin(), ret2.begin(), [](double d, double x) {return (1/x)*d;} );
+  return ret2;
 }
 

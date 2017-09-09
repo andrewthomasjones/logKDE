@@ -60,14 +60,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// logUniform
-double logUniform(double x);
-RcppExport SEXP _logKDE_logUniform(SEXP xSEXP) {
+// uniform
+double uniform(double x);
+RcppExport SEXP _logKDE_uniform(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(logUniform(x));
+    rcpp_result_gen = Rcpp::wrap(uniform(x));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -116,7 +116,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_logKDE_logLaplace", (DL_FUNC) &_logKDE_logLaplace, 1},
     {"_logKDE_logLogistic", (DL_FUNC) &_logKDE_logLogistic, 1},
     {"_logKDE_logTriangular", (DL_FUNC) &_logKDE_logTriangular, 1},
-    {"_logKDE_logUniform", (DL_FUNC) &_logKDE_logUniform, 1},
+    {"_logKDE_uniform", (DL_FUNC) &_logKDE_uniform, 1},
     {"_logKDE_KDE", (DL_FUNC) &_logKDE_KDE, 3},
     {"_logKDE_silverman", (DL_FUNC) &_logKDE_silverman, 1},
     {"_logKDE_logKDE", (DL_FUNC) &_logKDE_logKDE, 4},

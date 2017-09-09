@@ -26,8 +26,8 @@ logTriangular <- function(x) {
     .Call('_logKDE_logTriangular', PACKAGE = 'logKDE', x)
 }
 
-logUniform <- function(x) {
-    .Call('_logKDE_logUniform', PACKAGE = 'logKDE', x)
+uniform <- function(x) {
+    .Call('_logKDE_uniform', PACKAGE = 'logKDE', x)
 }
 
 KDE <- function(x, xi, h) {
