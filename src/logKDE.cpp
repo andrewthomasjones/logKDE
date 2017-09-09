@@ -90,7 +90,7 @@ double silverman(std::vector<double> x){
 
 //'@export
 // [[Rcpp::export]]
-std::vector<double> logKDE(const std::vector<double>& input, const std::vector<double>& support,  double h=0.0, std::string method="logUniform"){
+std::vector<double> logKDE(const std::vector<double>& input, const std::vector<double>& support,  double h, std::string method="logUniform"){
   int n = input.size();
   int N = support.size();
 
@@ -102,13 +102,10 @@ std::vector<double> logKDE(const std::vector<double>& input, const std::vector<d
 
   //take log of input
   std::transform(input.begin(), input.end(), xi.begin(), [](double x){return log(x);});
-  //take log of input
+  Rcout<< "x 1 = " << xi.at(1) << std::endl;
+  //take log of support
   std::transform(support.begin(), support.end(), X.begin(), [](double x){return log(x);});
-
-  //if h is zero assume we want to calculate ourselves here
-  if(h==0.0){
-    h=silverman(xi);
-  }
+  Rcout<< "x 1 = " << X.at(1) << std::endl;
 
   //Rcout<< "h = " << h << std::endl;
   //do kernels

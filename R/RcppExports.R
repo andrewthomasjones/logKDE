@@ -39,7 +39,7 @@ silverman <- function(x) {
 }
 
 #'@export
-logKDE <- function(input, support, h = 0.0, method = "logUniform") {
+logKDE <- function(input, support, h, method = "logUniform") {
     .Call('_logKDE_logKDE', PACKAGE = 'logKDE', input, support, h, method)
 }
 
