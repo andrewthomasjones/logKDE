@@ -1,8 +1,6 @@
-logKDEdensity <-
-  function(x, bw = "nrd0", adjust = 1,
+logKDEdensity <-function(x, bw = "nrd0", adjust = 1,
            kernel = c("gaussian", "epanechnikov", "triangular", "uniform", "laplace", "logistic"),
-           weights = NULL, window = kernel, width,
-           n = 512, from, to, cut = 3, na.rm = FALSE, ...)
+           weights = NULL, window = kernel, n = 512, from, to, cut = 3, na.rm = FALSE, ...)
   {
     #Taken from standard density function for consistency
     chkDots(...)
@@ -23,7 +21,7 @@ logKDEdensity <-
       nx <- length(x) # == sum(x.finite)
     }
 
-    if(any(!x<=0)) {
+    if(any(!x>0)) {
       x <- x[x>0]
       nx <- length(x) # == sum(x.finite)
       warning("Non-positive values of x have been removed!")
@@ -52,10 +50,10 @@ logKDEdensity <-
         warning("sum(weights) != 1  -- will not get true density")
     }
 
-    n.user <- n
+    n.user <- N <-n
     dat<-x
 
-    if(is.character(width)) bw <- width
+    #need to actually do something with weights
 
     if (is.character(bw)) {
       if(nx < 2)
@@ -83,7 +81,10 @@ logKDEdensity <-
     up <- to + 4 * bw
 
     x <- seq.int(from, to, length.out = n.user)
-    y<-logKDE(dat,x,bw,"loguniform")
+
+    kernel = "gaussian"
+    #need to do something when pass kernel name
+    y<-logKDE(dat,x,bw,kernel)
 
     structure(list(x = x, y = y, bw = bw, n = N,
                    call=match.call(), data.name=name, has.na = FALSE),
