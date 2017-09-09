@@ -5,58 +5,58 @@
 
 using namespace Rcpp;
 
-// logEpanechnikov
-double logEpanechnikov(double x);
-RcppExport SEXP _logKDE_logEpanechnikov(SEXP xSEXP) {
+// epanechnikov
+double epanechnikov(double x);
+RcppExport SEXP _logKDE_epanechnikov(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(logEpanechnikov(x));
+    rcpp_result_gen = Rcpp::wrap(epanechnikov(x));
     return rcpp_result_gen;
 END_RCPP
 }
-// logGaussian
-double logGaussian(double x);
-RcppExport SEXP _logKDE_logGaussian(SEXP xSEXP) {
+// gaussian
+double gaussian(double x);
+RcppExport SEXP _logKDE_gaussian(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(logGaussian(x));
+    rcpp_result_gen = Rcpp::wrap(gaussian(x));
     return rcpp_result_gen;
 END_RCPP
 }
-// logLaplace
-double logLaplace(double x);
-RcppExport SEXP _logKDE_logLaplace(SEXP xSEXP) {
+// laplace
+double laplace(double x);
+RcppExport SEXP _logKDE_laplace(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(logLaplace(x));
+    rcpp_result_gen = Rcpp::wrap(laplace(x));
     return rcpp_result_gen;
 END_RCPP
 }
-// logLogistic
-double logLogistic(double x);
-RcppExport SEXP _logKDE_logLogistic(SEXP xSEXP) {
+// logistic
+double logistic(double x);
+RcppExport SEXP _logKDE_logistic(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(logLogistic(x));
+    rcpp_result_gen = Rcpp::wrap(logistic(x));
     return rcpp_result_gen;
 END_RCPP
 }
-// logTriangular
-double logTriangular(double x);
-RcppExport SEXP _logKDE_logTriangular(SEXP xSEXP) {
+// triangular
+double triangular(double x);
+RcppExport SEXP _logKDE_triangular(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(logTriangular(x));
+    rcpp_result_gen = Rcpp::wrap(triangular(x));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -71,16 +71,81 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// KDE
-double KDE(double x, std::vector<double> xi, double h);
-RcppExport SEXP _logKDE_KDE(SEXP xSEXP, SEXP xiSEXP, SEXP hSEXP) {
+// KDE_e
+double KDE_e(double x, std::vector<double> xi, double h);
+RcppExport SEXP _logKDE_KDE_e(SEXP xSEXP, SEXP xiSEXP, SEXP hSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type x(xSEXP);
     Rcpp::traits::input_parameter< std::vector<double> >::type xi(xiSEXP);
     Rcpp::traits::input_parameter< double >::type h(hSEXP);
-    rcpp_result_gen = Rcpp::wrap(KDE(x, xi, h));
+    rcpp_result_gen = Rcpp::wrap(KDE_e(x, xi, h));
+    return rcpp_result_gen;
+END_RCPP
+}
+// KDE_g
+double KDE_g(double x, std::vector<double> xi, double h);
+RcppExport SEXP _logKDE_KDE_g(SEXP xSEXP, SEXP xiSEXP, SEXP hSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::vector<double> >::type xi(xiSEXP);
+    Rcpp::traits::input_parameter< double >::type h(hSEXP);
+    rcpp_result_gen = Rcpp::wrap(KDE_g(x, xi, h));
+    return rcpp_result_gen;
+END_RCPP
+}
+// KDE_lo
+double KDE_lo(double x, std::vector<double> xi, double h);
+RcppExport SEXP _logKDE_KDE_lo(SEXP xSEXP, SEXP xiSEXP, SEXP hSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::vector<double> >::type xi(xiSEXP);
+    Rcpp::traits::input_parameter< double >::type h(hSEXP);
+    rcpp_result_gen = Rcpp::wrap(KDE_lo(x, xi, h));
+    return rcpp_result_gen;
+END_RCPP
+}
+// KDE_t
+double KDE_t(double x, std::vector<double> xi, double h);
+RcppExport SEXP _logKDE_KDE_t(SEXP xSEXP, SEXP xiSEXP, SEXP hSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::vector<double> >::type xi(xiSEXP);
+    Rcpp::traits::input_parameter< double >::type h(hSEXP);
+    rcpp_result_gen = Rcpp::wrap(KDE_t(x, xi, h));
+    return rcpp_result_gen;
+END_RCPP
+}
+// KDE_la
+double KDE_la(double x, std::vector<double> xi, double h);
+RcppExport SEXP _logKDE_KDE_la(SEXP xSEXP, SEXP xiSEXP, SEXP hSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::vector<double> >::type xi(xiSEXP);
+    Rcpp::traits::input_parameter< double >::type h(hSEXP);
+    rcpp_result_gen = Rcpp::wrap(KDE_la(x, xi, h));
+    return rcpp_result_gen;
+END_RCPP
+}
+// KDE_u
+double KDE_u(double x, std::vector<double> xi, double h);
+RcppExport SEXP _logKDE_KDE_u(SEXP xSEXP, SEXP xiSEXP, SEXP hSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::vector<double> >::type xi(xiSEXP);
+    Rcpp::traits::input_parameter< double >::type h(hSEXP);
+    rcpp_result_gen = Rcpp::wrap(KDE_u(x, xi, h));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -111,13 +176,18 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_logKDE_logEpanechnikov", (DL_FUNC) &_logKDE_logEpanechnikov, 1},
-    {"_logKDE_logGaussian", (DL_FUNC) &_logKDE_logGaussian, 1},
-    {"_logKDE_logLaplace", (DL_FUNC) &_logKDE_logLaplace, 1},
-    {"_logKDE_logLogistic", (DL_FUNC) &_logKDE_logLogistic, 1},
-    {"_logKDE_logTriangular", (DL_FUNC) &_logKDE_logTriangular, 1},
+    {"_logKDE_epanechnikov", (DL_FUNC) &_logKDE_epanechnikov, 1},
+    {"_logKDE_gaussian", (DL_FUNC) &_logKDE_gaussian, 1},
+    {"_logKDE_laplace", (DL_FUNC) &_logKDE_laplace, 1},
+    {"_logKDE_logistic", (DL_FUNC) &_logKDE_logistic, 1},
+    {"_logKDE_triangular", (DL_FUNC) &_logKDE_triangular, 1},
     {"_logKDE_uniform", (DL_FUNC) &_logKDE_uniform, 1},
-    {"_logKDE_KDE", (DL_FUNC) &_logKDE_KDE, 3},
+    {"_logKDE_KDE_e", (DL_FUNC) &_logKDE_KDE_e, 3},
+    {"_logKDE_KDE_g", (DL_FUNC) &_logKDE_KDE_g, 3},
+    {"_logKDE_KDE_lo", (DL_FUNC) &_logKDE_KDE_lo, 3},
+    {"_logKDE_KDE_t", (DL_FUNC) &_logKDE_KDE_t, 3},
+    {"_logKDE_KDE_la", (DL_FUNC) &_logKDE_KDE_la, 3},
+    {"_logKDE_KDE_u", (DL_FUNC) &_logKDE_KDE_u, 3},
     {"_logKDE_silverman", (DL_FUNC) &_logKDE_silverman, 1},
     {"_logKDE_logKDE", (DL_FUNC) &_logKDE_logKDE, 4},
     {NULL, NULL, 0}

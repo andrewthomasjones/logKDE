@@ -1,7 +1,9 @@
 logKDEdensity <-function(x, bw = "nrd0", adjust = 1,
-           kernel = c("gaussian", "epanechnikov", "triangular", "uniform", "laplace", "logistic"),
+           kernel = "gaussian",
            weights = NULL, window = kernel, n = 512, from, to, cut = 3, na.rm = FALSE, ...)
   {
+
+    #c("gaussian", "epanechnikov", "triangular", "uniform", "laplace", "logistic")
     #Taken from standard density function for consistency
     chkDots(...)
     if (!is.numeric(x))
@@ -50,7 +52,7 @@ logKDEdensity <-function(x, bw = "nrd0", adjust = 1,
         warning("sum(weights) != 1  -- will not get true density")
     }
 
-    n.user <- N <-n
+    n.user <-n
     dat<-x
 
     #need to actually do something with weights
@@ -82,7 +84,7 @@ logKDEdensity <-function(x, bw = "nrd0", adjust = 1,
 
     x <- seq.int(from, to, length.out = n.user)
 
-    kernel = "gaussian"
+    #kernel = "gaussian"
     #need to do something when pass kernel name
     y<-logKDE(dat,x,bw,kernel)
 

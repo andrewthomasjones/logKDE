@@ -6,32 +6,52 @@
 #'
 NULL
 
-logEpanechnikov <- function(x) {
-    .Call('_logKDE_logEpanechnikov', PACKAGE = 'logKDE', x)
+epanechnikov <- function(x) {
+    .Call('_logKDE_epanechnikov', PACKAGE = 'logKDE', x)
 }
 
-logGaussian <- function(x) {
-    .Call('_logKDE_logGaussian', PACKAGE = 'logKDE', x)
+gaussian <- function(x) {
+    .Call('_logKDE_gaussian', PACKAGE = 'logKDE', x)
 }
 
-logLaplace <- function(x) {
-    .Call('_logKDE_logLaplace', PACKAGE = 'logKDE', x)
+laplace <- function(x) {
+    .Call('_logKDE_laplace', PACKAGE = 'logKDE', x)
 }
 
-logLogistic <- function(x) {
-    .Call('_logKDE_logLogistic', PACKAGE = 'logKDE', x)
+logistic <- function(x) {
+    .Call('_logKDE_logistic', PACKAGE = 'logKDE', x)
 }
 
-logTriangular <- function(x) {
-    .Call('_logKDE_logTriangular', PACKAGE = 'logKDE', x)
+triangular <- function(x) {
+    .Call('_logKDE_triangular', PACKAGE = 'logKDE', x)
 }
 
 uniform <- function(x) {
     .Call('_logKDE_uniform', PACKAGE = 'logKDE', x)
 }
 
-KDE <- function(x, xi, h) {
-    .Call('_logKDE_KDE', PACKAGE = 'logKDE', x, xi, h)
+KDE_e <- function(x, xi, h) {
+    .Call('_logKDE_KDE_e', PACKAGE = 'logKDE', x, xi, h)
+}
+
+KDE_g <- function(x, xi, h) {
+    .Call('_logKDE_KDE_g', PACKAGE = 'logKDE', x, xi, h)
+}
+
+KDE_lo <- function(x, xi, h) {
+    .Call('_logKDE_KDE_lo', PACKAGE = 'logKDE', x, xi, h)
+}
+
+KDE_t <- function(x, xi, h) {
+    .Call('_logKDE_KDE_t', PACKAGE = 'logKDE', x, xi, h)
+}
+
+KDE_la <- function(x, xi, h) {
+    .Call('_logKDE_KDE_la', PACKAGE = 'logKDE', x, xi, h)
+}
+
+KDE_u <- function(x, xi, h) {
+    .Call('_logKDE_KDE_u', PACKAGE = 'logKDE', x, xi, h)
 }
 
 silverman <- function(x) {
@@ -39,7 +59,7 @@ silverman <- function(x) {
 }
 
 #'@export
-logKDE <- function(input, support, h, method = "logUniform") {
+logKDE <- function(input, support, h, method = "uniform") {
     .Call('_logKDE_logKDE', PACKAGE = 'logKDE', input, support, h, method)
 }
 
