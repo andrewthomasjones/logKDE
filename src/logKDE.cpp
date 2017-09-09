@@ -25,7 +25,7 @@ using namespace boost::accumulators;
 // [[Rcpp::export]]
 double logEpanechnikov(double x){
   double bound = sqrt(5);
-  double y = 3*(5-(x*x))/(20*sqrt(5))*(x>(-1*bound))*(x<(1*bound));
+  double y = 3*(5-(x*x))/(20*sqrt(5)*x)*(x>(-1*bound))*(x<(1*bound));
   return y;
 }
 
@@ -38,15 +38,15 @@ double logGaussian(double x){
 // [[Rcpp::export]]
 double logLaplace(double x){
   double val = std::pow(2.0,-0.5);
-  double y=val*std::exp(-1*val*std::abs(x));
+  double y=(1/x)*val*std::exp(-1*val*std::abs(x));
   return y;
 }
 
 // [[Rcpp::export]]
 double logLogistic(double x){
   double bound = sqrt(3);
-  double tmp = std::pow(std::cosh(M_PI*x/(2*bound)),-2.0);
-  double y=(M_PI/(4*bound))*tmp;
+  double tmp = std::pow(std::cosh(M_PI*x/(2*bound)),2.0);
+  double y=(M_PI/(4*bound))*(1/x)*tmp;
   return y;
 }
 
@@ -69,11 +69,18 @@ double logUniform(double x){
 // [[Rcpp::export]]
 double KDE(double x, std::vector<double> xi, double h){
   int n = xi.size();
-  std::vector<double> ret(n);
+  std::vector<double> tmp(n);
 
-  //std::transform(xi.begin(), xi.end(), ret.begin(), [h, x](double xi){return logUniform(((x-xi)/h));});
-  std::transform(xi.begin(), xi.end(), ret.begin(), [h, x](double xi){return logGaussian(((x-xi)/h));});
-  double dens_x = (1/(n*h))*std::accumulate(ret.begin(), ret.end(), 0);
+  // for(std::vector<double>::iterator it = xi.begin(); it != xi.end(); ++it) {
+  //
+  //   Rcout << "x "<< x << " xi "<< *it << " h "<< h << std::endl;
+  //   Rcout << (x-*it)/h << std::endl;
+  //   Rcout << logGaussian(((x-*it)/h)) << std::endl;
+  // }
+
+  std::transform(xi.begin(), xi.end(), tmp.begin(), [h, x](double xi){return logLaplace(((x-xi)/h));});
+  double dens_x = (1/(n*h))*std::accumulate(tmp.begin(), tmp.end(), 0.0);
+  Rcout << dens_x << std::endl;
   return(dens_x);
 }
 
@@ -102,15 +109,14 @@ std::vector<double> logKDE(const std::vector<double>& input, const std::vector<d
 
   //take log of input
   std::transform(input.begin(), input.end(), xi.begin(), [](double x){return log(x);});
-  Rcout<< "x 1 = " << xi.at(1) << std::endl;
+
   //take log of support
   std::transform(support.begin(), support.end(), X.begin(), [](double x){return log(x);});
-  Rcout<< "x 1 = " << X.at(1) << std::endl;
 
   //Rcout<< "h = " << h << std::endl;
   //do kernels
   std::transform(X.begin(), X.end(), ret.begin(), [h, xi](double X){return KDE(X, xi, h);});
-  std::transform(ret.begin(), ret.end(), ret2.begin(), [](double X){return std::exp(X);});
-  return ret2;
+
+  return ret;
 }
 
