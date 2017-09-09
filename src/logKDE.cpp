@@ -127,7 +127,6 @@ double silverman(std::vector<double> x){
 }
 
 
-//'@export
 // [[Rcpp::export]]
 std::vector<double> logKDE(const std::vector<double>& input, const std::vector<double>& support,  double h, std::string method="uniform"){
   int n = input.size();

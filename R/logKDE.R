@@ -1,9 +1,25 @@
-logKDEdensity <-function(x, bw = "nrd0", adjust = 1,
+#' Computes Kernel Density Estimates in Log Domain.
+#'
+#' @param x the data from which the estimate is to be computed.
+#' @param bw bandwidth.
+#' @param adjust the bandwidth used is actually adjust*bw.
+#' @param kernel choose from "gaussian", "epanechnikov", "triangular", "uniform", "laplace" and "logistic".
+#' @param weights numeric vector of non-negative observation weights.
+#' @param n the number of equally spaced points at which the density is to be estimated.
+#' @param from,to the left and right-most points of the grid at which the density is to be estimated; the defaults are cut * bw outside of range(x).
+#' @param cut by default, the values of from and to are cut bandwidths beyond the extremes of the data
+#' @return Density object. See help(density).
+#' @examples
+#' logdensity(abs(rnorm(100)), from =.1, to=2, kernel='triangular')
+#'
+#'@export
+logdensity <- function(x, bw = "nrd0", adjust = 1,
            kernel = "gaussian",
-           weights = NULL, window = kernel, n = 512, from, to, cut = 3, na.rm = FALSE, ...)
+           weights = NULL, n = 512, from, to, cut = 3, na.rm = FALSE, ...)
   {
 
-    #c("gaussian", "epanechnikov", "triangular", "uniform", "laplace", "logistic")
+   #c("gaussian", "epanechnikov", "triangular", "uniform", "laplace", "logistic")
+
     #Taken from standard density function for consistency
     chkDots(...)
     if (!is.numeric(x))
@@ -73,8 +89,12 @@ logKDEdensity <-function(x, bw = "nrd0", adjust = 1,
     bw <- adjust * bw
     if (bw <= 0) stop("'bw' is not positive.")
 
-    if (missing(from))
-      from <- min(x) - cut * bw
+    if (missing(from)){
+      from <- max(min(x) - cut * bw, 0.0001)
+      if(min(x) - cut * bw<0.0001){
+        warning("Auto-range choice cut-off at 0.")
+      }
+    }
     if (missing(to))
       to   <- max(x) + cut * bw
     if (!is.finite(from)) stop("non-finite 'from'")
