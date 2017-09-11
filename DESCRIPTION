@@ -9,4 +9,5 @@ Description: Computes Kernel Density Estimates in Log Domain. Utilises common fu
 License: GPL (>= 2)
 Imports: Rcpp (>= 0.12.12),stats
 LinkingTo: Rcpp
+SystemRequirements: C++11
 RoxygenNote: 6.0.1
