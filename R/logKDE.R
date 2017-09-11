@@ -99,6 +99,8 @@ logdensity <- function(x, bw = "nrd0", adjust = 1,
       to   <- max(x) + cut * bw
     if (!is.finite(from)) stop("non-finite 'from'")
     if (!is.finite(to)) stop("non-finite 'to'")
+    if (from<0) stop("negative 'from'")
+    if (to<0) stop("negative  'to'")
     lo <- from - 4 * bw
     up <- to + 4 * bw
 
