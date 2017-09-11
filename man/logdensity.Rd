@@ -5,7 +5,7 @@
 \title{Computes Kernel Density Estimates in Log Domain.}
 \usage{
 logdensity(x, bw = "nrd0", adjust = 1, kernel = "gaussian",
-  weights = NULL, n = 512, from, to, cut = 3, na.rm = FALSE, ...)
+  weights = NULL, n = 512, from, to, cut = 3, na.rm = FALSE)
 }
 \arguments{
 \item{x}{the data from which the estimate is to be computed.}
@@ -23,6 +23,8 @@ logdensity(x, bw = "nrd0", adjust = 1, kernel = "gaussian",
 \item{from, to}{the left and right-most points of the grid at which the density is to be estimated; the defaults are cut * bw outside of range(x).}
 
 \item{cut}{by default, the values of from and to are cut bandwidths beyond the extremes of the data}
+
+\item{na.rm}{standard deal}
 }
 \value{
 Density object. See help(density).
