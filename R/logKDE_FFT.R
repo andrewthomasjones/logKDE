@@ -18,7 +18,7 @@ logdensity_fft <-
   function(x, bw = "nrd0", adjust = 1,
            kernel = "gaussian",
            weights = NULL, give.Rkern = FALSE,
-           n = 512, from, to, cut = 3, na.rm = FALSE, ...)
+           n = 512, from, to, cut = log(3), na.rm = FALSE, ...)
   {
 
 
@@ -61,7 +61,14 @@ logdensity_fft <-
       warning("Non-positive values of x have been removed!")
     }
 
-
+    if(!missing(from)){
+      if (from<0) stop("negative 'from'")
+      from<-log(from)
+    }
+    if(!missing(to)){
+      if (to<0) stop("negative  'to'")
+      to<-log(to)
+    }
     ## Handle 'weights'
     if(is.null(weights))  {
       weights <- rep.int(1/nx, nx)
@@ -108,8 +115,8 @@ logdensity_fft <-
     if (bw <= 0) stop("'bw' is not positive.")
 
     if (missing(from)){
-      from <- max(min(x) - cut * bw, 0.0001)
-      if(min(x) - cut * bw<0.0001){
+      from <- max(min(x) - cut * bw, log(0.01))
+      if(min(x) - cut * bw<log(0.01)){
         warning("Auto-range choice cut-off at 0.")
       }
     }
@@ -117,8 +124,6 @@ logdensity_fft <-
       to   <- max(x) + cut * bw
     if (!is.finite(from)) stop("non-finite 'from'")
     if (!is.finite(to)) stop("non-finite 'to'")
-    if (from<0) stop("negative 'from'")
-    if (to<0) stop("negative  'to'")
     lo <- from - 4 * bw
     up <- to + 4 * bw
     ## This bins weighted distances
@@ -139,7 +144,7 @@ logdensity_fft <-
                     epanechnikov = {
                       a <- bw*sqrt(5) ; ax <- abs(kords)
                       ifelse(ax < a, 3/4*(1 - (ax/a)^2)/a, 0) },
-                    laplace = 2^(-0.5)*exp(-1*2^(-0.5)*abs(kords)),
+                    laplace = 2^(-0.5)*exp(-1*2^(-0.5)*abs(kords)/bw),
                     logistic = {
                       a <- 2*bw*sqrt(3); ax <- abs(kords)
                       (pi/2*a)*(cosh(pi*ax/a)^(-2))}
@@ -153,8 +158,8 @@ logdensity_fft <-
     kords <- fft( fft(y)* Conj(fft(kords)), inverse=TRUE)
     kords <- pmax.int(0, Re(kords)[1L:n]/length(y))
     xords <- seq.int(lo, up, length.out = n)
-    x <- exp(seq.int(log(from), log(to), length.out = n.user))
-    structure(list(x = x, y = approx(xords, kords, x)$y, bw = bw, n = N,
+    x <- (seq.int(from, to, length.out = n.user))
+    structure(list(x = exp(x), y = approx(xords, kords, x)$y*(1/exp(x)), bw = bw, n = N,
                    call=match.call(), data.name=name, has.na = FALSE),
               class="density")
   }

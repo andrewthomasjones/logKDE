@@ -39,6 +39,13 @@ logdensity <- function(x, bw = "nrd0", adjust = 1,
       nx <- length(x) # == sum(x.finite)
     }
 
+    if(!missing(from)){
+      if (from<0) stop("negative 'from'")
+     }
+    if(!missing(to)){
+      if (to<0) stop("negative  'to'")
+    }
+
     if(any(!x>0)) {
       x <- x[x>0]
       nx <- length(x) # == sum(x.finite)
@@ -90,8 +97,8 @@ logdensity <- function(x, bw = "nrd0", adjust = 1,
     if (bw <= 0) stop("'bw' is not positive.")
 
     if (missing(from)){
-      from <- max(min(x) - cut * bw, 0.0001)
-      if(min(x) - cut * bw<0.0001){
+      from <- max(min(x) - cut * bw, (0.01))
+      if(min(x) - cut * bw<(0.01)){
         warning("Auto-range choice cut-off at 0.")
       }
     }
@@ -99,15 +106,8 @@ logdensity <- function(x, bw = "nrd0", adjust = 1,
       to   <- max(x) + cut * bw
     if (!is.finite(from)) stop("non-finite 'from'")
     if (!is.finite(to)) stop("non-finite 'to'")
-    if (from<0) stop("negative 'from'")
-    if (to<0) stop("negative  'to'")
-    lo <- from - 4 * bw
-    up <- to + 4 * bw
-
     x <- seq.int(from, to, length.out = n.user)
 
-    #kernel = "gaussian"
-    #need to do something when pass kernel name
     y<-logKDE(dat,x,bw,kernel)
 
     structure(list(x = x, y = y, bw = bw, n = N,
