@@ -88,7 +88,8 @@ logdensity <- function(x, bw = "nrd0", adjust = 1,
                    nrd = bw.nrd(log(x)),
                    ucv = bw.ucv(log(x)),
                    bcv = bw.bcv(log(x)),
-                   sj = , "sj-ste" = bw.SJ(log(x), method="ste"),
+                   logg = bw.logG(x),
+                    "sj-ste" = bw.SJ(log(x), method="ste"),
                    "sj-dpi" = bw.SJ(log(x), method="dpi"),
                    stop("unknown bandwidth rule"))
     }
@@ -125,8 +126,6 @@ logdensity <- function(x, bw = "nrd0", adjust = 1,
 #' @param n the number of equally spaced points at which the density is to be estimated.
 #' @param from,to the left and right-most points of the grid at which the density is to be estimated; the defaults are cut * bw outside of range(x).
 #' @param cut by default, the values of from and to are cut bandwidths beyond the extremes of the data
-#' @param na.rm standard deal
-#' @param give.Rkern honesttly dont know what this does
 #' @return Density object. See help(density).
 #' @examples
 #' logdensity_fft(abs(rnorm(100)), from =0.01, to= 2.5, kernel = 'logistic')
@@ -135,22 +134,8 @@ logdensity <- function(x, bw = "nrd0", adjust = 1,
 logdensity_fft <-
   function(x, bw = "nrd0", adjust = 1,
            kernel = "gaussian",
-           weights = NULL, give.Rkern = FALSE,
-           n = 512, from, to, cut = log(3), na.rm = FALSE)
+           weights = NULL, n = 512, from, to, cut = log(3), na.rm = FALSE)
   {
-
-    if(give.Rkern)
-      ##-- sigma(K) * R(K), the scale invariant canonical bandwidth:
-      return(switch(kernel,
-                    gaussian = 1/(2*sqrt(pi)),
-                    uniform = sqrt(3)/6,
-                    triangular = sqrt(6)/9,
-                    epanechnikov = 3/(5*sqrt(5)),
-                    laplace=2^(-0.5),
-                    logistic=pi/(4*sqrt(3))*cosh(pi/(2*sqrt(3)))^-2 #????
-
-      ))
-
 
     #x<-log(x)
     if (!is.numeric(x))
@@ -221,6 +206,7 @@ logdensity_fft <-
                    nrd = bw.nrd(x),
                    ucv = bw.ucv(x),
                    bcv = bw.bcv(x),
+                   logg = bw.logG(exp(x)),
                    sj = , "sj-ste" = bw.SJ(x, method="ste"),
                    "sj-dpi" = bw.SJ(x, method="dpi"),
                    stop("unknown bandwidth rule"))
@@ -308,7 +294,12 @@ BinDist <- function(x, w, lo, hi, n){
 
 
 
-
+bw.logG<-function(x){
+ s<-sd(x)
+ n<-length(x)
+ h = ((16*exp(0.25*s^2))/(s^4 + 4*s^2 + 12))^(0.2)*(s/(n^0.2))
+ return(h)
+}
 
 
 
