@@ -260,7 +260,7 @@ logdensity_fft <-
                     epanechnikov = {
                       a <- bw*sqrt(5) ; ax <- abs(kords)
                       ifelse(ax < a, 3/4*(1 - (ax/a)^2)/a, 0) },
-                    laplace = 2^(-0.5)*exp(-1*2^(-0.5)*abs(kords)/bw),
+                    laplace = (1/bw)*(sqrt(2)/2)*exp(-1*2^(0.5)*abs(kords)/bw),
                     logistic = {
                       a <- 2*bw*sqrt(3); ax <- abs(kords)
                       (pi/2*a)*(cosh(pi*ax/a)^(-2))}
@@ -275,7 +275,7 @@ logdensity_fft <-
     kords <- pmax.int(0, Re(kords)[1L:n]/length(y))
     xords <- seq.int(lo, up, length.out = n)
     x <- (seq.int(from, to, length.out = n.user))
-    structure(list(x = exp(x), y = approx(xords, kords, x)$y*(1/exp(x)), bw = bw, n = N,
+    structure(list(x = exp(x), y = exp(log(approx(xords, kords, x)$y)- x), bw = bw, n = N,
                    call=match.call(), data.name=name, has.na = FALSE),
               class="density")
   }

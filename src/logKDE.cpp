@@ -30,8 +30,8 @@ double gaussian(double x){
 
 // [[Rcpp::export]]
 double laplace(double x){
-  double val = std::pow(2.0,-0.5);
-  double y=val*std::exp(-1*val*std::abs(x));
+  double val = 2/sqrt(2);
+  double y=val*std::exp(-1*(sqrt(2))*std::abs(x));
   return y;
 }
 
@@ -46,7 +46,8 @@ double logistic(double x){
 // [[Rcpp::export]]
 double triangular(double x){
   double bound = sqrt(6);
-  double y = (std::pow(6, 0.5)-std::abs(x))*(x>(-1*bound))*(x<(1*bound));
+  //double y = ((bound/6.0) -std::abs(x))*(x>(-1*bound))*(x<(1*bound));
+  double y = ((1 - std::abs(x)/bound)/bound)*(std::abs(x)< bound);
   return y;
 }
 
@@ -55,6 +56,7 @@ double triangular(double x){
 double uniform(double x){
   double bound = sqrt(3);
   double y=(1/(2*bound))*(x>(-1*bound))*(x<(1*bound));
+
   return y;
 }
 
@@ -97,7 +99,7 @@ double KDE_la(double x, std::vector<double> xi, double h){
   int n = xi.size();
   std::vector<double> tmp(n);
   std::transform(xi.begin(), xi.end(), tmp.begin(), [x,h](double xi){return laplace((x-xi)/h);});
-  double dens_x = (1/(n*h))*std::accumulate(tmp.begin(), tmp.end(), 0.0);
+  double dens_x = (1/(2*n*h))*std::accumulate(tmp.begin(), tmp.end(), 0.0);
   return(dens_x);
 }
 // [[Rcpp::export]]
