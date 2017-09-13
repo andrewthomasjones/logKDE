@@ -303,6 +303,36 @@ bw.logG<-function(x){
 
 
 
+#' Computes least squares CV bandwidth for log domain KDE.
+#'
+#' @param y the data from which the estimate is to be computed.
+#' @param grid number of points for bw grid
+#' @param NB number of points to estimate the KDE at during the CV loop
+#' @return bw the optimal CV bandwidth
+#' @examples
+#' bw.logCV(rchisq(100,10), grid=21, NB=512)
+#'
+#'@export
+bw.logCV<-function(y, grid=21, NB=512){
+  fit<-logdensity_fft(y)
+  n<-length(y)
+  ### Bandwidth
+  HH <- 2^seq(-2,2,length.out = grid)*fit$bw
+  ## Storage for CV
+  CVSTORE <- c()
 
+  for (hh in 1:grid) {
+    LD <- logdensity_fft(y,bw=HH[hh],n=NB)
+    FF <- approxfun(LD$x,LD$y^2)
+    CV <- integrate(FF,min(LD$x),max(LD$x))$value
+    ### Compute CV for given bandwidth and NB
+    for (x in 1:n) {
+      FF <- approxfun(LD$x,logdensity_fft(y[-x],bw=HH[hh],from = min(LD$x),to = max(LD$x),n=NB)$y)
+      CV <- CV - 2/n*FF(y[x])
+    }
+    CVSTORE[hh] <- CV
+  }
 
-
+  ### Get the optimal BW
+  return(HH[which.min(CVSTORE)])
+}
