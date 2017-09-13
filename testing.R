@@ -145,6 +145,7 @@ log_test<-function(y, bw_method, from, to, se_len, kern="gaussian"){
 function_list<-list(sin_mad_mix=sin_mad_mix, sin_mad=sin_mad, l_normal=l_normal, abs_normal=abs_normal,pos_claw=pos_claw)
 rfunction_list<-list(rsin_mad_mix=rsin_mad_mix, rsin_mad=rsin_mad, rlnorm2=rlnorm2, ranorm=ranorm, rpos_claw=rpos_claw)
 q_list<-list(rsin_mad_mix=c(0.7, 0.5,0.3), rsin_mad=c(1.45,1.07,0.75), rlnorm2=c(0.5,1,2), ranorm=c(0.5,1,2), rpos_claw=c(0.5,1,2))
+
 method_list<-list(normalkde = norm_test, gamma = gamma_test, rig=rig_test, logKDE= log_test)
 kernel_list<-list("gaussian", "epanechnikov", "triangular", "uniform", "laplace", "logistic")
 kernel_list2<-list("gaussian", "epanechnikov", "triangular", "rectangular")
@@ -161,7 +162,7 @@ MISE<-function(dens, x, q, flist){
 }
 
 
-M=1
+M=100
 n=512
 
 fcount<-length(function_list)
@@ -199,7 +200,9 @@ for(i in 1:fcount){
     }
   }
 }
+
 save(big_list,"/home/andrew/Dropbox/logKDEresults.RData" )
+
 
 
 
