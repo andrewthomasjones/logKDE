@@ -1,5 +1,7 @@
 library(Conake)
 library(VGAM)
+library(pracma)
+
 
 pos_claw<-function(x,q){
     y=0.5*dnorm(x, mean = 0, sd=q)
@@ -15,7 +17,7 @@ pos_claw<-function(x,q){
 }
 
 sin_mad_mix<-function(x,q){
-  y=0.4*dsinmad(x,2.8,0.193,1.7)+0.6*dsinmad(x,5.8,5.93,q)
+  y=0.4*dsinmad(x,2.8,0.193,1.7)+0.6*dsinmad(x,5.8,0.593,q)
   return(y)
 }
 
@@ -35,14 +37,6 @@ abs_normal<-function(x,q){
   return(y)
 }
 
-function_list<-list(pos_claw=pos_claw, sin_mad_mix=sin_mad_mix, sin_mad=sin_mad, l_normal=l_normal, abs_normal=abs_normal)
-
-MISE<-function(dens, x, q, flist, k){
-  n=length(dens)
-  true_dens<-flist[[k]](x,q)
-  (1/n)*(trapz(x,(dens-true_dens)^2))
-}
-
 ranorm<-function(n,q){
   abs(rnorm(n, sd=q))
 }
@@ -56,7 +50,7 @@ rsin_mad<-function(n,q){
 
 rsin_mad_mix<-function(n,q){
   y1<-rsinmad(n,2.8,0.193,1.7)
-  y2<-rsinmad(n,5.8,5.93,q)
+  y2<-rsinmad(n,5.8,0.593,q)
   y<-y1
   ind<-runif(n)>0.6
   y[ind]<-y2[ind]
@@ -68,9 +62,9 @@ rpos_claw<-function(n,q){
   y<-array(0,c(n,8))
   y[,1]<-abs(rnorm(n, mean = 0, sd=q))
 
-   for(i in 1:7){
+  for(i in 1:7){
     y[,i+1] = (((rnorm(n, mean=((i/2)+0), sd=0.2))))
-   }
+  }
 
   for(i in 1:7){
     for(j in which(y[,i+1]<0)){
@@ -97,46 +91,128 @@ rpos_claw<-function(n,q){
 
 }
 
-V<-rgamma(100,1.5,2.6)
-h<-cvbw(V, bw = NULL, ker="RIG")
-x<-seq.int(from, to, length.out = n.user)
-est<-dke(V,"RIG",h$hcv, x=x)
-y<-est$f_n
-
-V<-rgamma(100,1.5,2.6)
-h<-cvbw(V, bw = NULL, ker="GA")
-x<-seq.int(from, to, length.out = n.user)
-est<-dke(V,"GA",h$hcv, x=x)
-y<-est$f_n
 
 
+gamma_test<-function(y, bw_method, from, to, se_len, kern=NULL){
+  if(bw_method=="CV") {h<-cvbw(y, bw = NULL, ker="GA")$hcv}
+  if(bw_method=="silverman"){h<-bw.nrd0(y)}
+  if(bw_method=="lsilverman"){h<-bw.logG(y)}
 
+  x<-seq.int(from, to, length.out = length(y))
+  est<-dke(vec_data=as.vector(y),"GA",bw=h, x=x)
+  return_list<-list(y=est$f_n,x=x, bw=h)
 
-### Sample
-XX <- rlnorm(1000)
-## Grid size
-GRID <- 10
-# Maximum value for h
-HMAX <- 5*logdensity(XX)$bw
-# Min value for h
-HMIN <- 0.1*HMAX
-### Number of bins
-NB <- 100
-### Bandwidth
-HH <- seq(HMIN,HMAX,length.out = GRID)
-## Storage for CV
-CVSTORE <- c()
-
-for (hh in 1:GRID) {
-  LD <- logdensity(XX,bw=HH[hh],n=NB)
-  ### Compute CV for given bandwidth and NB
-  CV <- 0
-  for (xx in 1:length(XX)) {
-    CV <- CV + sum((LD$y - logdensity(XX[-xx],bw=HH[hh],from = min(LD$x),to = max(LD$x),n=NB)$y)^2)/NB
-  }
-  CVSTORE[hh] <- CV/length(XX)
+  return(return_list)
 }
-HH[which.min(CVSTORE)]
+
+rig_test<-function(y, bw_method, from, to, se_len, kern=NULL){
+  if(bw_method=="CV") {h<-cvbw(y, bw = NULL, ker="RIG")$hcv}
+  if(bw_method=="silverman"){h<-bw.nrd0(y)}
+  if(bw_method=="lsilverman"){h<-bw.logG(y)}
+
+  x<-seq.int(from, to, length.out = length(y))
+  est<-dke(y,"RIG",h, x=x)
+
+  return_list<-list(y=est$f_n, x=x, bw=h)
+
+  return(return_list)
+}
+
+norm_test<-function(y, bw_method, from, to, se_len, kern="gaussian"){
+  if(bw_method=="CV") {h<-bw.logCV(y)}
+  if(bw_method=="silverman"){h<-bw.nrd0((y))}
+  if(bw_method=="lsilverman"){h<-bw.logG(y)}
+  est<-density(y, bw=h, from=from, to=to, n=se_len, kernel = kern)
+
+  return_list<-list(y=est$y, x=est$x, bw=h)
+  return(return_list)
+}
+
+log_test<-function(y, bw_method, from, to, se_len, kern="gaussian"){
+  if(bw_method=="CV") {h<-bw.logCV(y)}
+  if(bw_method=="silverman"){h<-bw.nrd0(log(y))}
+  if(bw_method=="lsilverman"){h<-bw.logG(y)}
+
+  est<-logdensity(y,bw=h, from=from, to=to, n=se_len, kernel = kern)
+
+  return_list<-list(y=est$y, x=est$x,  bw=h)
+  return(return_list)
+}
+
+
+
+
+function_list<-list(sin_mad_mix=sin_mad_mix, sin_mad=sin_mad, l_normal=l_normal, abs_normal=abs_normal,pos_claw=pos_claw)
+rfunction_list<-list(rsin_mad_mix=rsin_mad_mix, rsin_mad=rsin_mad, rlnorm2=rlnorm2, ranorm=ranorm, rpos_claw=rpos_claw)
+q_list<-list(rsin_mad_mix=c(0.7, 0.5,0.3), rsin_mad=c(1.45,1.07,0.75), rlnorm2=c(0.5,1,2), ranorm=c(0.5,1,2), rpos_claw=c(0.5,1,2))
+method_list<-list(normalkde = norm_test, gamma = gamma_test, rig=rig_test, logKDE= log_test)
+kernel_list<-list("gaussian", "epanechnikov", "triangular", "uniform", "laplace", "logistic")
+kernel_list2<-list("gaussian", "epanechnikov", "triangular", "rectangular")
+kern_list<-list(normalkde = kernel_list2, gamma = "NA", rig="NA", logKDE= kernel_list)
+
+
+
+bw_list<-list("silverman", "lsilverman",  "CV")
+
+MISE<-function(dens, x, q, flist){
+  n=length(dens)
+  true_dens<-flist(x,q)
+  (1/n)*(trapz(x,(dens-true_dens)^2))
+}
+
+
+M=1
+n=512
+
+fcount<-length(function_list)
+count<-0
+big_list<-list()
+for(i in 1:fcount){
+  for(k in 1:length(q_list[[i]])){
+    q<-q_list[[i]][k]
+    for(j in 1:M){
+      y<-rfunction_list[[i]](n,q)
+
+      test_fit<-logdensity(y)
+      from<-min(test_fit$x)
+      to<-max(test_fit$x)
+      se_len<-512
+
+      fileConn<-file("/home/andrew/Dropbox/logKDEresults.csv","a")
+      for(meth in 1:length(method_list)){
+
+        for(bw_method in bw_list){
+          for(kern in 1:length(kern_list[[meth]])){
+            count<-count+1
+            kern_type=kern_list[[meth]][[kern]]
+            test_result<-method_list[[meth]](y, bw_method, from, to, se_len, kern_type)
+            test_result$MISE <- MISE(test_result$y, test_result$x, q, function_list[[i]])
+            results<-paste(names(function_list)[i],names(rfunction_list)[i], j, q,  kern_type, bw_method, names(method_list)[meth], test_result$MISE, test_result$bw, sep=",")
+            print(results)
+            big_list[[count]]<-results
+            writeLines(results, fileConn)
+          }
+        }
+      }
+      close(fileConn)
+
+    }
+  }
+}
+save(big_list,"/home/andrew/Dropbox/logKDEresults.RData" )
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

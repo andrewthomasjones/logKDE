@@ -5,8 +5,7 @@
 \title{Computes Kernel Density Estimates in Log Domain using FFT}
 \usage{
 logdensity_fft(x, bw = "nrd0", adjust = 1, kernel = "gaussian",
-  weights = NULL, give.Rkern = FALSE, n = 512, from, to, cut = log(3),
-  na.rm = FALSE)
+  weights = NULL, n = 512, from, to, cut = log(3), na.rm = FALSE)
 }
 \arguments{
 \item{x}{the data from which the estimate is to be computed.}
@@ -19,15 +18,11 @@ logdensity_fft(x, bw = "nrd0", adjust = 1, kernel = "gaussian",
 
 \item{weights}{numeric vector of non-negative observation weights.}
 
-\item{give.Rkern}{honesttly dont know what this does}
-
 \item{n}{the number of equally spaced points at which the density is to be estimated.}
 
 \item{from, to}{the left and right-most points of the grid at which the density is to be estimated; the defaults are cut * bw outside of range(x).}
 
 \item{cut}{by default, the values of from and to are cut bandwidths beyond the extremes of the data}
-
-\item{na.rm}{standard deal}
 }
 \value{
 Density object. See help(density).

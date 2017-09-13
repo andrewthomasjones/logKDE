@@ -89,6 +89,7 @@ logdensity <- function(x, bw = "nrd0", adjust = 1,
                    ucv = bw.ucv(log(x)),
                    bcv = bw.bcv(log(x)),
                    logg = bw.logG(x),
+                   logcv = bw.logCV(x),
                     "sj-ste" = bw.SJ(log(x), method="ste"),
                    "sj-dpi" = bw.SJ(log(x), method="dpi"),
                    stop("unknown bandwidth rule"))
@@ -207,6 +208,7 @@ logdensity_fft <-
                    ucv = bw.ucv(x),
                    bcv = bw.bcv(x),
                    logg = bw.logG(exp(x)),
+                   logcv = bw.logCV(exp(x)),
                    sj = , "sj-ste" = bw.SJ(x, method="ste"),
                    "sj-dpi" = bw.SJ(x, method="dpi"),
                    stop("unknown bandwidth rule"))
@@ -293,11 +295,21 @@ BinDist <- function(x, w, lo, hi, n){
 
 
 
-
+#' Computes least squares bandwidth for log domain KDE using modified silverman rule.
+#'
+#' @param x the data from which the estimate is to be computed.
+#' @return h the optimal bandwidth
+#' @examples
+#' bw.logG(rchisq(100,10))
+#'
+#'@export
 bw.logG<-function(x){
  s<-sd(x)
  n<-length(x)
  h = ((16*exp(0.25*s^2))/(s^4 + 4*s^2 + 12))^(0.2)*(s/(n^0.2))
+ if(!is.finite(h)){
+   h<-bw.nrd0(log(x))
+ }
  return(h)
 }
 
@@ -324,12 +336,28 @@ bw.logCV<-function(y, grid=21, NB=512){
   for (hh in 1:grid) {
     LD <- logdensity_fft(y,bw=HH[hh],n=NB)
     FF <- approxfun(LD$x,LD$y^2)
-    CV <- integrate(FF,min(LD$x),max(LD$x))$value
+
+    #CV <- integrate(FF,min(LD$x),max(LD$x))$value
+
+    CV = tryCatch({
+      integrate(FF,min(LD$x),max(LD$x))$value
+    }, warning = function(w) {
+      NA
+    }, error = function(e) {
+      NA
+    }, finally = {
+      NA
+    })
+
     ### Compute CV for given bandwidth and NB
+    CVlist<-array(0,n)
     for (x in 1:n) {
       FF <- approxfun(LD$x,logdensity_fft(y[-x],bw=HH[hh],from = min(LD$x),to = max(LD$x),n=NB)$y)
-      CV <- CV - 2/n*FF(y[x])
+      temp<-FF(y[x])
+      #print(temp)
+      CVlist[x] <- temp
     }
+    CV <- CV - 2*mean(CVlist, na.rm=T)
     CVSTORE[hh] <- CV
   }
 
