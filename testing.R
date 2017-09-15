@@ -17,12 +17,12 @@ pos_claw<-function(x,q){
 }
 
 sin_mad_mix<-function(x,q){
-  y=0.4*dsinmad(x,2.8,0.193,1.7)+0.6*dsinmad(x,5.8,0.593,q)
+  y=0.4*dsinmad(x,0.193,2.8,1.7)+0.6*dsinmad(x,0.593,5.8,q)
   return(y)
 }
 
 sin_mad<-function(x,q){
-  y=dsinmad(x,2.8,0.193,q)
+  y=dsinmad(x,0.193,2.8,q)
   return(y)
 }
 
@@ -44,13 +44,13 @@ rlnorm2<-function(n,q){
   rlnorm(n, meanlog = 0, sdlog = q)
 }
 rsin_mad<-function(n,q){
-  y=rsinmad(n,2.8,0.193,q)
+  y=rsinmad(n,0.193,2.8,q)
   return(y)
 }
 
 rsin_mad_mix<-function(n,q){
-  y1<-rsinmad(n,2.8,0.193,1.7)
-  y2<-rsinmad(n,5.8,0.593,q)
+  y1<-rsinmad(n,0.193,2.8,1.7)
+  y2<-rsinmad(n,0.593,5.8,q)
   y<-y1
   ind<-runif(n)>0.6
   y[ind]<-y2[ind]
@@ -142,14 +142,27 @@ log_test<-function(y, bw_method, from, to, se_len, kern="gaussian"){
 
 
 
-function_list<-list(sin_mad_mix=sin_mad_mix, sin_mad=sin_mad, l_normal=l_normal, abs_normal=abs_normal,pos_claw=pos_claw)
-rfunction_list<-list(rsin_mad_mix=rsin_mad_mix, rsin_mad=rsin_mad, rlnorm2=rlnorm2, ranorm=ranorm, rpos_claw=rpos_claw)
-q_list<-list(rsin_mad_mix=c(0.7, 0.5,0.3), rsin_mad=c(1.45,1.07,0.75), rlnorm2=c(0.5,1,2), ranorm=c(0.5,1,2), rpos_claw=c(0.5,1,2))
+function_list<-list(sin_mad_mix=sin_mad_mix, sin_mad=sin_mad, l_normal=l_normal)#, abs_normal=abs_normal,pos_claw=pos_claw)
+rfunction_list<-list(rsin_mad_mix=rsin_mad_mix, rsin_mad=rsin_mad, rlnorm2=rlnorm2)#, ranorm=ranorm, rpos_claw=rpos_claw)
+q_list<-list(rsin_mad_mix=c(0.7,0.5,0.3), rsin_mad=c(1.45,1.07,0.75), rlnorm2=c(0.5,1,2))# ranorm=c(0.5,1,2), rpos_claw=c(0.5,1,2))
+
+to_list<-list(rsin_mad_mix=c(50,700,12000), rsin_mad=c(30,80,1050), rlnorm2=c(25,250,70000))
 
 method_list<-list(normalkde = norm_test, gamma = gamma_test, rig=rig_test, logKDE= log_test)
 kernel_list<-list("gaussian", "epanechnikov", "triangular", "uniform", "laplace", "logistic")
 kernel_list2<-list("gaussian", "epanechnikov", "triangular", "rectangular")
-kern_list<-list(normalkde = kernel_list2, gamma = "NA", rig="NA", logKDE= kernel_list)
+kern_list<-list(normalkde = kernel_list2, gamma = "gamma", rig="RIG", logKDE= kernel_list)
+
+# #for making a guess at what a good max is
+# for(i in 1:fcount){
+#   for(k in 1:length(q_list[[i]])){
+#     q<-q_list[[i]][k]
+#     y<-rfunction_list[[i]](10^8,q)
+#     to_list[[i]][k]<-ceiling(max(y))
+#     print(to_list[[i]][k])
+#
+#   }
+# }
 
 
 
@@ -158,11 +171,11 @@ bw_list<-list("silverman", "lsilverman",  "CV")
 MISE<-function(dens, x, q, flist){
   n=length(dens)
   true_dens<-flist(x,q)
-  (1/n)*(trapz(x,(dens-true_dens)^2))
+  (trapz(x,(dens-true_dens)^2))
 }
 
 
-M=100
+M=1000
 n=512
 
 fcount<-length(function_list)
@@ -170,19 +183,20 @@ count<-0
 big_list<-list()
 for(i in 1:fcount){
   for(k in 1:length(q_list[[i]])){
+
     q<-q_list[[i]][k]
+    from<-0.01
+    to<-to_list[[i]][k]
+
+    se_len<-512
+
     for(j in 1:M){
       y<-rfunction_list[[i]](n,q)
-
-      test_fit<-logdensity(y)
-      from<-min(test_fit$x)
-      to<-max(test_fit$x)
-      se_len<-512
-
-      fileConn<-file("/home/andrew/Dropbox/logKDEresults.csv","a")
+      fileConn<-file(paste0("/home/andrew/Dropbox/logKDEresults_", Sys.Date(), ".csv"),"a")
       for(meth in 1:length(method_list)){
 
         for(bw_method in bw_list){
+
           for(kern in 1:length(kern_list[[meth]])){
             count<-count+1
             kern_type=kern_list[[meth]][[kern]]
