@@ -97,6 +97,7 @@ gamma_test<-function(y, bw_method, from, to, se_len, kern=NULL){
   if(bw_method=="CV") {h<-cvbw(y, bw = NULL, ker="GA")$hcv}
   if(bw_method=="silverman"){h<-bw.nrd0(y)}
   if(bw_method=="lsilverman"){h<-bw.logG(y)}
+  if(is.finite(bw_method)){h<-bw_method}
 
   x<-seq.int(from, to, length.out = length(y))
   est<-dke(vec_data=as.vector(y),"GA",bw=h, x=x)
@@ -109,6 +110,7 @@ rig_test<-function(y, bw_method, from, to, se_len, kern=NULL){
   if(bw_method=="CV") {h<-cvbw(y, bw = NULL, ker="RIG")$hcv}
   if(bw_method=="silverman"){h<-bw.nrd0(y)}
   if(bw_method=="lsilverman"){h<-bw.logG(y)}
+  if(is.finite(bw_method)){h<-bw_method}
 
   x<-seq.int(from, to, length.out = length(y))
   est<-dke(y,"RIG",h, x=x)
@@ -122,6 +124,9 @@ norm_test<-function(y, bw_method, from, to, se_len, kern="gaussian"){
   if(bw_method=="CV") {h<-bw.logCV(y)}
   if(bw_method=="silverman"){h<-bw.nrd0((y))}
   if(bw_method=="lsilverman"){h<-bw.logG(y)}
+  if(bw_method=="lsilverman"){h<-bw.logG(y)}
+  if(is.finite(bw_method)){h<-bw_method}
+
   est<-density(y, bw=h, from=from, to=to, n=se_len, kernel = kern)
 
   return_list<-list(y=est$y, x=est$x, bw=h)
@@ -132,6 +137,7 @@ log_test<-function(y, bw_method, from, to, se_len, kern="gaussian"){
   if(bw_method=="CV") {h<-bw.logCV(y)}
   if(bw_method=="silverman"){h<-bw.nrd0(log(y))}
   if(bw_method=="lsilverman"){h<-bw.logG(y)}
+  if(is.finite(bw_method)){h<-bw_method}
 
   est<-logdensity(y,bw=h, from=from, to=to, n=se_len, kernel = kern)
 
@@ -146,7 +152,7 @@ function_list<-list(sin_mad_mix=sin_mad_mix, sin_mad=sin_mad, l_normal=l_normal)
 rfunction_list<-list(rsin_mad_mix=rsin_mad_mix, rsin_mad=rsin_mad, rlnorm2=rlnorm2)#, ranorm=ranorm, rpos_claw=rpos_claw)
 q_list<-list(rsin_mad_mix=c(0.7,0.5,0.3), rsin_mad=c(1.45,1.07,0.75), rlnorm2=c(0.5,1,2))# ranorm=c(0.5,1,2), rpos_claw=c(0.5,1,2))
 
-to_list<-list(rsin_mad_mix=c(50,700,12000), rsin_mad=c(30,80,1050), rlnorm2=c(25,250,70000))
+to_list<-list(rsin_mad_mix=c(3,3,3), rsin_mad=c(6,6,6), rlnorm2=c(12,12,12))
 
 method_list<-list(normalkde = norm_test, gamma = gamma_test, rig=rig_test, logKDE= log_test)
 kernel_list<-list("gaussian", "epanechnikov", "triangular", "uniform", "laplace", "logistic")
@@ -156,14 +162,14 @@ kern_list<-list(normalkde = kernel_list2, gamma = "gamma", rig="RIG", logKDE= ke
 # #for making a guess at what a good max is
 # for(i in 1:fcount){
 #   for(k in 1:length(q_list[[i]])){
-#     q<-q_list[[i]][k]
-#     y<-rfunction_list[[i]](10^8,q)
-#     to_list[[i]][k]<-ceiling(max(y))
-#     print(to_list[[i]][k])
+#
+#     y<-rfunction_list[[i]](512,q)
+#     to<-to_list[[i]][k]
+#     hist(y, xlim=c(from, to),50)
 #
 #   }
 # }
-
+#
 
 
 bw_list<-list("silverman", "lsilverman",  "CV")

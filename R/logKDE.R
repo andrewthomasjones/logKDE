@@ -325,11 +325,11 @@ bw.logG<-function(x){
 #' bw.logCV(rchisq(100,10), grid=21, NB=512)
 #'
 #'@export
-bw.logCV<-function(y, grid=21, NB=512){
+bw.logCV<-function(y,  grid=21, NB=512){
   fit<-logdensity_fft(y)
   n<-length(y)
   ### Bandwidth
-  HH <- 2^seq(-2,2,length.out = grid)*fit$bw
+  HH <- 2^seq(-5,2,length.out = grid)*fit$bw
   ## Storage for CV
   CVSTORE <- c()
 
@@ -340,7 +340,9 @@ bw.logCV<-function(y, grid=21, NB=512){
     #CV <- integrate(FF,min(LD$x),max(LD$x))$value
 
     CV = tryCatch({
-      integrate(FF,min(LD$x),max(LD$x))$value
+      x_seq<-seq(min(LD$x),max(LD$x),length.out=NB)
+      trapz(x_seq, FF(x_seq))
+      #integrate(FF,min(LD$x),max(LD$x), subdivisions = 100)$value
     }, warning = function(w) {
       NA
     }, error = function(e) {
