@@ -84,14 +84,14 @@ logdensity <- function(x, bw = "nrd0", adjust = 1,
       if(nx < 2)
         stop("need at least 2 points to select a bandwidth automatically")
       bw <- switch(tolower(bw),
-                   nrd0 = bw.nrd0(log(x)),
-                   nrd = bw.nrd(log(x)),
-                   ucv = bw.ucv(log(x)),
-                   bcv = bw.bcv(log(x)),
+                   nrd0 = stats::bw.nrd0(log(x)),
+                   nrd = stats::bw.nrd(log(x)),
+                   ucv = stats::bw.ucv(log(x)),
+                   bcv = stats::bw.bcv(log(x)),
                    logg = bw.logG(x),
                    logcv = bw.logCV(x),
-                    "sj-ste" = bw.SJ(log(x), method="ste"),
-                   "sj-dpi" = bw.SJ(log(x), method="dpi"),
+                    "sj-ste" = stats::bw.SJ(log(x), method="ste"),
+                   "sj-dpi" = stats::bw.SJ(log(x), method="dpi"),
                    stop("unknown bandwidth rule"))
     }
     if (!is.finite(bw)) stop("non-finite 'bw'")
@@ -117,6 +117,7 @@ logdensity <- function(x, bw = "nrd0", adjust = 1,
               class="density")
   }
 
+
 #' Computes Kernel Density Estimates in Log Domain using FFT
 #'
 #' @param x the data from which the estimate is to be computed.
@@ -127,6 +128,7 @@ logdensity <- function(x, bw = "nrd0", adjust = 1,
 #' @param n the number of equally spaced points at which the density is to be estimated.
 #' @param from,to the left and right-most points of the grid at which the density is to be estimated; the defaults are cut * bw outside of range(x).
 #' @param cut by default, the values of from and to are cut bandwidths beyond the extremes of the data
+#' @param na.rm standard dea
 #' @return Density object. See help(density).
 #' @examples
 #' logdensity_fft(abs(rnorm(100)), from =0.01, to= 2.5, kernel = 'logistic')
@@ -203,14 +205,14 @@ logdensity_fft <-
       if(nx < 2)
         stop("need at least 2 points to select a bandwidth automatically")
       bw <- switch(tolower(bw),
-                   nrd0 = bw.nrd0(x),
-                   nrd = bw.nrd(x),
-                   ucv = bw.ucv(x),
-                   bcv = bw.bcv(x),
+                   nrd0 = stats::bw.nrd0(x),
+                   nrd = stats::bw.nrd(x),
+                   ucv = stats::bw.ucv(x),
+                   bcv = stats::bw.bcv(x),
                    logg = bw.logG(exp(x)),
                    logcv = bw.logCV(exp(x)),
-                   sj = , "sj-ste" = bw.SJ(x, method="ste"),
-                   "sj-dpi" = bw.SJ(x, method="dpi"),
+                   sj = , "sj-ste" = stats::bw.SJ(x, method="ste"),
+                   "sj-dpi" = stats::bw.SJ(x, method="dpi"),
                    stop("unknown bandwidth rule"))
     }
     if (!is.finite(bw)) stop("non-finite 'bw'")
@@ -236,7 +238,7 @@ logdensity_fft <-
     kords <- seq.int(0, 2*(up-lo), length.out = 2L * n)
     kords[(n + 2):(2 * n)] <- -kords[n:2]
     kords <- switch(kernel,
-                    gaussian = dnorm(kords, sd = bw),
+                    gaussian = stats::dnorm(kords, sd = bw),
                     ## In the following, a := bw / sigma(K0), where
                     ##	K0() is the unscaled kernel below
                     uniform = {
@@ -259,11 +261,11 @@ logdensity_fft <-
 
 
 
-    kords <- fft( fft(y)* Conj(fft(kords)), inverse=TRUE)
+    kords <- stats::fft( stats::fft(y)* Conj(stats::fft(kords)), inverse=TRUE)
     kords <- pmax.int(0, Re(kords)[1L:n]/length(y))
     xords <- seq.int(lo, up, length.out = n)
     x <- (seq.int(from, to, length.out = n.user))
-    structure(list(x = exp(x), y = exp(log(approx(xords, kords, x)$y)- x), bw = bw, n = N,
+    structure(list(x = exp(x), y = exp(log(stats::approx(xords, kords, x)$y)- x), bw = bw, n = N,
                    call=match.call(), data.name=name, has.na = FALSE),
               class="density")
   }
@@ -304,11 +306,11 @@ BinDist <- function(x, w, lo, hi, n){
 #'
 #'@export
 bw.logG<-function(x){
- s<-sd(x)
+ s<-stats::sd(x)
  n<-length(x)
  h = ((16*exp(0.25*s^2))/(s^4 + 4*s^2 + 12))^(0.2)*(s/(n^0.2))
  if(!is.finite(h)){
-   h<-bw.nrd0(log(x))
+   h<-stats::bw.nrd0(log(x))
  }
  return(h)
 }
@@ -335,13 +337,13 @@ bw.logCV<-function(y,  grid=21, NB=512){
 
   for (hh in 1:grid) {
     LD <- logdensity_fft(y,bw=HH[hh],n=NB)
-    FF <- approxfun(LD$x,LD$y^2)
+    FF <- stats::approxfun(LD$x,LD$y^2)
 
     #CV <- integrate(FF,min(LD$x),max(LD$x))$value
 
     CV = tryCatch({
       x_seq<-seq(min(LD$x),max(LD$x),length.out=NB)
-      trapz(x_seq, FF(x_seq))
+      pracma::trapz(x_seq, FF(x_seq))
       #integrate(FF,min(LD$x),max(LD$x), subdivisions = 100)$value
     }, warning = function(w) {
       NA
@@ -354,7 +356,7 @@ bw.logCV<-function(y,  grid=21, NB=512){
     ### Compute CV for given bandwidth and NB
     CVlist<-array(0,n)
     for (x in 1:n) {
-      FF <- approxfun(LD$x,logdensity_fft(y[-x],bw=HH[hh],from = min(LD$x),to = max(LD$x),n=NB)$y)
+      FF <- stats::approxfun(LD$x,logdensity_fft(y[-x],bw=HH[hh],from = min(LD$x),to = max(LD$x),n=NB)$y)
       temp<-FF(y[x])
       #print(temp)
       CVlist[x] <- temp
@@ -366,3 +368,7 @@ bw.logCV<-function(y,  grid=21, NB=512){
   ### Get the optimal BW
   return(HH[which.min(CVSTORE)])
 }
+
+
+
+#' @import stats

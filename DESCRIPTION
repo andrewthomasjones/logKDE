@@ -1,13 +1,13 @@
 Package: logKDE
 Type: Package
-Title: Computes Kernel Density Estimates in Log Domain
+Title: Computing Kernel Density Estimates in Log Domain with a wide variety of kernels
 Version: 0.1.0
 Date: 2017-09-09
 Author: Hien D. Nguyen, Andrew T. Jones, and Geoffrey J. McLachlan
 Maintainer: Andrew T. Jones <andrewthomasjones@gmail.com>
 Description: Computes Kernel Density Estimates in Log Domain. Utilises common functionality with the density() function.
 License: GPL (>= 2)
-Imports: Rcpp (>= 0.12.12)
+Imports: Rcpp (>= 0.12.12), pracma
 LinkingTo: Rcpp
 SystemRequirements: C++11
 RoxygenNote: 6.0.1

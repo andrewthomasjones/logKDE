@@ -23,6 +23,8 @@ logdensity_fft(x, bw = "nrd0", adjust = 1, kernel = "gaussian",
 \item{from, to}{the left and right-most points of the grid at which the density is to be estimated; the defaults are cut * bw outside of range(x).}
 
 \item{cut}{by default, the values of from and to are cut bandwidths beyond the extremes of the data}
+
+\item{na.rm}{standard dea}
 }
 \value{
 Density object. See help(density).
