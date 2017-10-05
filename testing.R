@@ -225,13 +225,17 @@ save(big_list,"/home/andrew/Dropbox/logKDEresults.RData" )
 
 
 
-
-
-
-
-
-
-
+#
+#
+#
+#
+#
+#
+# interaction(dat2$V7, dat2$V5)
+# logKDE.epanechnikov      logKDE.triangular        logKDE.gaussian         logKDE.uniform        logKDE.logistic         logKDE.laplace     normalkde.gaussian   normalkde.triangular
+# 0.004220972            0.004276010            0.004432093            0.004582786            0.004755713            0.005600958            0.007091096            0.007239872
+# normalkde.epanechnikov  normalkde.rectangular            gamma.gamma                rig.RIG
+# 0.007383662            0.008404307            0.029510654            0.035846674
 
 
 
