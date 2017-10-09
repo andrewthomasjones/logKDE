@@ -1,0 +1,41 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# logKDE
+
+The goal of logKDE is to efficiently compute Kernel Density Estimates in Log Domain with a wide variety of kernels. In addition it provides two new BW estimators for use with strictly positive densities.
+
+## Installation
+
+You can install logKDE from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("andrewthomasjones/logKDE")
+```
+
+## Example
+
+This is a very basic example:
+
+```{r example}
+## strictly positive data
+x<-rchisq(1000,12)
+## get BW
+bw<-bw.logCV(x)
+## do KDE
+y<-logdensity(x, bw=bw)
+## what if we want it faster
+y_fft<-logdensity_fft(x, bw=bw) #density points are evenly spaced on scale
+```

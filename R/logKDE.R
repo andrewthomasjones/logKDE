@@ -125,7 +125,7 @@ logdensity <- function(x, bw = "nrd0", adjust = 1,
 #'
 #' Kernel Density Estimates of strictly positive distributions using FFT.
 #'
-#' @description The function \code{logdensity_fft} computes kernel density estimates (KDE) of strictly positive distributions by performing the KDE via fast fourier transform utilising the \code{fft} function. The syntax and function structure is largely borrowed from the function \code{density} in package {stats}.
+#' @description The function \code{logdensity_fft} computes kernel density estimates (KDE) of strictly positive distributions by performing the KDE via fast fourier transform utilizing the \code{fft} function. The syntax and function structure is largely borrowed from the function \code{density} in package {stats}.
 #'
 #' @param x the data from which the estimate is to be computed.
 #' @param bw the smoothing bandwidth to be used. Can also be can also be a character string giving a rule to choose the bandwidth. Like \code{density} defaults to "nrd0". All options in  \code{help(bw.nrd)} are available as well as \code{"bw.logCV"} and \code{"bw.logG"}.
@@ -337,15 +337,15 @@ bw.logG<-function(x){
 #'
 #'@export
 bw.logCV<-function(x,  grid=21, NB=512){
-  fit<-logdensity_fft(y)
-  n<-length(y)
+  fit<-logdensity_fft(x)
+  n<-length(x)
   ### Bandwidth
   HH <- 2^seq(-5,2,length.out = grid)*fit$bw
   ## Storage for CV
   CVSTORE <- c()
 
-  for (hh in 1:grid) {
-    LD <- logdensity_fft(y,bw=HH[hh],n=NB)
+  for (hh in seq_len(grid)) {
+    LD <- logdensity_fft(x,bw=HH[hh],n=NB)
     FF <- stats::approxfun(LD$x,LD$y^2)
 
     #CV <- integrate(FF,min(LD$x),max(LD$x))$value
@@ -364,11 +364,11 @@ bw.logCV<-function(x,  grid=21, NB=512){
 
     ### Compute CV for given bandwidth and NB
     CVlist<-array(0,n)
-    for (x in 1:n) {
-      FF <- stats::approxfun(LD$x,logdensity_fft(y[-x],bw=HH[hh],from = min(LD$x),to = max(LD$x),n=NB)$y)
-      temp<-FF(y[x])
+    for (i in seq_len(n)) {
+      FF <- stats::approxfun(LD$x,logdensity_fft(x[-i],bw=HH[hh],from = min(LD$x),to = max(LD$x),n=NB)$y)
+      temp<-FF(x[i])
       #print(temp)
-      CVlist[x] <- temp
+      CVlist[i] <- temp
     }
     CV <- CV - 2*mean(CVlist, na.rm=T)
     CVSTORE[hh] <- CV
