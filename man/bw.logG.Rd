@@ -2,18 +2,18 @@
 % Please edit documentation in R/logKDE.R
 \name{bw.logG}
 \alias{bw.logG}
-\title{Computes least squares bandwidth for log domain KDE using modified silverman rule.}
+\title{Bandwidth estimation for strictly positive distributions.}
 \usage{
 bw.logG(x)
 }
 \arguments{
-\item{x}{the data from which the estimate is to be computed.}
+\item{x}{numeric vector of the data. Must be strictly positive, will be log transformed during estimation.}
 }
 \value{
-h the optimal bandwidth
+bw the optimal bandwidth.
 }
 \description{
-Computes least squares bandwidth for log domain KDE using modified silverman rule.
+Computes bandwidth for log domain KDE using the Silverman rule.
 }
 \examples{
 bw.logG(rchisq(100,10))

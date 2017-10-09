@@ -1,15 +1,19 @@
-#' Computes Kernel Density Estimates in Log Domain.
+#' Kernel Density Estimates of strictly positive distributions.
+#'
+#' @description The function \code{logdensity} computes kernel density estimates (KDE) of strictly positive distributions by performing the KDE in the log domain and then transforming the result back again. The syntax and function structure is largely borrowed from the function \code{density} in package {stats}.
 #'
 #' @param x the data from which the estimate is to be computed.
-#' @param bw bandwidth.
-#' @param adjust the bandwidth used is actually adjust*bw.
-#' @param kernel choose from "gaussian", "epanechnikov", "triangular", "uniform", "laplace" and "logistic".
-#' @param weights numeric vector of non-negative observation weights.
-#' @param n the number of equally spaced points at which the density is to be estimated.
+#' @param bw the smoothing bandwidth to be used. Can also be can also be a character string giving a rule to choose the bandwidth. Like \code{density} defaults to "nrd0". All options in  \code{help(bw.nrd)} are available as well as \code{"bw.logCV"} and \code{"bw.logG"}.
+#' @param adjust the bandwidth used is actually \code{adjust*bw}.
+#' @param kernel a character string giving the smoothing kernel to be used. Choose from "gaussian", "epanechnikov", "triangular", "uniform", "laplace" and "logistic". Default value is "gaussian".
+#' @param weights numeric vector of non-negative observation weights of the same length as \code{x}.
+#' @param n the number of equally spaced points at which the density is to be estimated. Note that these are equally spaced in the original domain.
 #' @param from,to the left and right-most points of the grid at which the density is to be estimated; the defaults are cut * bw outside of range(x).
 #' @param cut by default, the values of from and to are cut bandwidths beyond the extremes of the data
-#' @param na.rm standard deal
-#' @return Density object. See help(density).
+#' @param na.rm logical; if TRUE, missing values are removed from x. If FALSE any missing values cause an error.
+#' @return An object with class "density". See \code{help(density)} for details.
+#' @seealso \code{\link{density}}, \code{\link{plot.density}}, \code{\link{logdensity_fft}}, \code{\link{bw.nrd}}, \code{\link{bw.logCV}},  \code{\link{bw.logG}}.
+#'
 #' @examples
 #' logdensity(abs(rnorm(100)), from =.1, to=2, kernel='triangular')
 #'
@@ -118,20 +122,25 @@ logdensity <- function(x, bw = "nrd0", adjust = 1,
   }
 
 
-#' Computes Kernel Density Estimates in Log Domain using FFT
+#'
+#' Kernel Density Estimates of strictly positive distributions using FFT.
+#'
+#' @description The function \code{logdensity_fft} computes kernel density estimates (KDE) of strictly positive distributions by performing the KDE via fast fourier transform utilising the \code{fft} function. The syntax and function structure is largely borrowed from the function \code{density} in package {stats}.
 #'
 #' @param x the data from which the estimate is to be computed.
-#' @param bw bandwidth.
-#' @param adjust the bandwidth used is actually adjust*bw.
-#' @param kernel choose from "gaussian", "epanechnikov", "triangular", "uniform", "laplace" and "logistic".
-#' @param weights numeric vector of non-negative observation weights.
-#' @param n the number of equally spaced points at which the density is to be estimated.
+#' @param bw the smoothing bandwidth to be used. Can also be can also be a character string giving a rule to choose the bandwidth. Like \code{density} defaults to "nrd0". All options in  \code{help(bw.nrd)} are available as well as \code{"bw.logCV"} and \code{"bw.logG"}.
+#' @param adjust the bandwidth used is actually \code{adjust*bw}.
+#' @param kernel a character string giving the smoothing kernel to be used. Choose from "gaussian", "epanechnikov", "triangular", "uniform", "laplace" and "logistic". Default value is "gaussian".
+#' @param weights numeric vector of non-negative observation weights of the same length as \code{x}.
+#' @param n the number of equally spaced points at which the density is to be estimated. Note that these are equally spaced in the log domain for \code{logdensity_fft}, and thus on a log scale when transformed back to the original domain.
 #' @param from,to the left and right-most points of the grid at which the density is to be estimated; the defaults are cut * bw outside of range(x).
 #' @param cut by default, the values of from and to are cut bandwidths beyond the extremes of the data
-#' @param na.rm standard dea
-#' @return Density object. See help(density).
-#' @examples
-#' logdensity_fft(abs(rnorm(100)), from =0.01, to= 2.5, kernel = 'logistic')
+#' @param na.rm logical; if TRUE, missing values are removed from x. If FALSE any missing values cause an error.
+#' @return An object with class "density". See \code{help(density)} for details.
+#' @seealso \code{\link{density}}, \code{\link{plot.density}}, \code{\link{logdensity}}, \code{\link{bw.nrd}}, \code{\link{bw.logCV}},  \code{\link{bw.logG}}.
+#'
+#'@examples
+#'logdensity_fft(abs(rnorm(100)), from =0.01, to= 2.5, kernel = 'logistic')
 #'
 #'@export
 logdensity_fft <-
@@ -295,12 +304,12 @@ BinDist <- function(x, w, lo, hi, n){
 }
 
 
-
-
-#' Computes least squares bandwidth for log domain KDE using modified silverman rule.
+#' Bandwidth estimation for strictly positive distributions.
 #'
-#' @param x the data from which the estimate is to be computed.
-#' @return h the optimal bandwidth
+#' Computes bandwidth for log domain KDE using the Silverman rule.
+#'
+#' @param x numeric vector of the data. Must be strictly positive, will be log transformed during estimation.
+#' @return bw the optimal bandwidth.
 #' @examples
 #' bw.logG(rchisq(100,10))
 #'
@@ -308,26 +317,26 @@ BinDist <- function(x, w, lo, hi, n){
 bw.logG<-function(x){
  s<-stats::sd(x)
  n<-length(x)
- h = ((16*exp(0.25*s^2))/(s^4 + 4*s^2 + 12))^(0.2)*(s/(n^0.2))
- if(!is.finite(h)){
-   h<-stats::bw.nrd0(log(x))
+ bw = ((16*exp(0.25*s^2))/(s^4 + 4*s^2 + 12))^(0.2)*(s/(n^0.2))
+ if(!is.finite(bw)){
+   bw<-stats::bw.nrd0(log(x))
  }
- return(h)
+ return(bw)
 }
 
-
-
-#' Computes least squares CV bandwidth for log domain KDE.
+#' Optimal CV BW estimation for strictly positive distributions.
 #'
-#' @param y the data from which the estimate is to be computed.
-#' @param grid number of points for bw grid
-#' @param NB number of points to estimate the KDE at during the CV loop
-#' @return bw the optimal CV bandwidth
+#' @description  Computes least squares cross-validation (CV) bandwidth (BW) for log domain KDE.
+#'
+#' @param x numeric vector of the data. Must be strictly positive, will be log transformed during estimation.
+#' @param grid number of points used for BW selection CV grid.
+#' @param NB number of points at which to estimate the KDE at during the CV loop.
+#' @return bw the optimal least squares CV bandwidth.
 #' @examples
 #' bw.logCV(rchisq(100,10), grid=21, NB=512)
 #'
 #'@export
-bw.logCV<-function(y,  grid=21, NB=512){
+bw.logCV<-function(x,  grid=21, NB=512){
   fit<-logdensity_fft(y)
   n<-length(y)
   ### Bandwidth

@@ -2,7 +2,7 @@
 % Please edit documentation in R/logKDE.R
 \name{logdensity}
 \alias{logdensity}
-\title{Computes Kernel Density Estimates in Log Domain.}
+\title{Kernel Density Estimates of strictly positive distributions.}
 \usage{
 logdensity(x, bw = "nrd0", adjust = 1, kernel = "gaussian",
   weights = NULL, n = 512, from, to, cut = 3, na.rm = FALSE)
@@ -10,29 +10,32 @@ logdensity(x, bw = "nrd0", adjust = 1, kernel = "gaussian",
 \arguments{
 \item{x}{the data from which the estimate is to be computed.}
 
-\item{bw}{bandwidth.}
+\item{bw}{the smoothing bandwidth to be used. Can also be can also be a character string giving a rule to choose the bandwidth. Like \code{density} defaults to "nrd0". All options in  \code{help(bw.nrd)} are available as well as \code{"bw.logCV"} and \code{"bw.logG"}.}
 
-\item{adjust}{the bandwidth used is actually adjust*bw.}
+\item{adjust}{the bandwidth used is actually \code{adjust*bw}.}
 
-\item{kernel}{choose from "gaussian", "epanechnikov", "triangular", "uniform", "laplace" and "logistic".}
+\item{kernel}{a character string giving the smoothing kernel to be used. Choose from "gaussian", "epanechnikov", "triangular", "uniform", "laplace" and "logistic". Default value is "gaussian".}
 
-\item{weights}{numeric vector of non-negative observation weights.}
+\item{weights}{numeric vector of non-negative observation weights of the same length as \code{x}.}
 
-\item{n}{the number of equally spaced points at which the density is to be estimated.}
+\item{n}{the number of equally spaced points at which the density is to be estimated. Note that these are equally spaced in the original domain.}
 
 \item{from, to}{the left and right-most points of the grid at which the density is to be estimated; the defaults are cut * bw outside of range(x).}
 
 \item{cut}{by default, the values of from and to are cut bandwidths beyond the extremes of the data}
 
-\item{na.rm}{standard deal}
+\item{na.rm}{logical; if TRUE, missing values are removed from x. If FALSE any missing values cause an error.}
 }
 \value{
-Density object. See help(density).
+An object with class "density". See \code{help(density)} for details.
 }
 \description{
-Computes Kernel Density Estimates in Log Domain.
+The function \code{logdensity} computes kernel density estimates (KDE) of strictly positive distributions by performing the KDE in the log domain and then transforming the result back again. The syntax and function structure is largely borrowed from the function \code{density} in package {stats}.
 }
 \examples{
 logdensity(abs(rnorm(100)), from =.1, to=2, kernel='triangular')
 
+}
+\seealso{
+\code{\link{density}}, \code{\link{plot.density}}, \code{\link{logdensity_fft}}, \code{\link{bw.nrd}}, \code{\link{bw.logCV}},  \code{\link{bw.logG}}.
 }

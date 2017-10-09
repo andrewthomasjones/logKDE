@@ -2,22 +2,22 @@
 % Please edit documentation in R/logKDE.R
 \name{bw.logCV}
 \alias{bw.logCV}
-\title{Computes least squares CV bandwidth for log domain KDE.}
+\title{Optimal CV BW estimation for strictly positive distributions.}
 \usage{
-bw.logCV(y, grid = 21, NB = 512)
+bw.logCV(x, grid = 21, NB = 512)
 }
 \arguments{
-\item{y}{the data from which the estimate is to be computed.}
+\item{x}{numeric vector of the data. Must be strictly positive, will be log transformed during estimation.}
 
-\item{grid}{number of points for bw grid}
+\item{grid}{number of points used for BW selection CV grid.}
 
-\item{NB}{number of points to estimate the KDE at during the CV loop}
+\item{NB}{number of points at which to estimate the KDE at during the CV loop.}
 }
 \value{
-bw the optimal CV bandwidth
+bw the optimal least squares CV bandwidth.
 }
 \description{
-Computes least squares CV bandwidth for log domain KDE.
+Computes least squares cross-validation (CV) bandwidth (BW) for log domain KDE.
 }
 \examples{
 bw.logCV(rchisq(100,10), grid=21, NB=512)
