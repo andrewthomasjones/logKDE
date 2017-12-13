@@ -5,8 +5,7 @@ Version: 0.1.0
 Date: 2017-09-09
 Author: Hien D. Nguyen, Andrew T. Jones, and Geoffrey J. McLachlan
 Maintainer: Andrew T. Jones <andrewthomasjones@gmail.com>
-Description: This package efficiently computes kernel density estimates in the log domain for strictly positive distributions. 
-Support is provided for a variety of kernels (gaussian, epanechnikov, triangular, uniform, laplace, and logistic). In addition it provides two new bandwdith estimators for use with strictly positive densities.
+Description: This package efficiently computes kernel density estimates in the log domain for strictly positive distributions. Support is provided for a variety of kernels (gaussian, epanechnikov, triangular, uniform, laplace, and logistic). In addition it provides two new bandwdith estimators for use with strictly positive densities.
 License: GPL (>= 2)
 Imports: Rcpp (>= 0.12.12), pracma
 LinkingTo: Rcpp

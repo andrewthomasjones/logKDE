@@ -14,3 +14,4 @@ New submission
 This is a resubmission. In this version I have:
 
 * Fixed the DESCRIPTION Description section.
+* Requested references for the new bandwdith estimators currently unvailable as paper is in preparation.
