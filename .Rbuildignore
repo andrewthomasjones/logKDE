@@ -4,4 +4,4 @@ cran-comments.md
 ^README\.Rmd$
 ^README-.*\.png$
 plots.R
-
+testing_LogKDE.R
