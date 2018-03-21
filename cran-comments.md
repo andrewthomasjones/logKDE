@@ -10,3 +10,8 @@ There was 1 NOTE:
 
 New submission
 
+=======
+## Resubmission
+This is a resubmission. In this version I have:
+
+* Fixed the DESCRIPTION Description section.
