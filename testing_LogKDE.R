@@ -294,10 +294,14 @@ save(big_list,file=paste0("./logKDEresults_final_",i,"_", Sys.time(),".RData" ))
 #   writeLines(big_list[[i]], zz)
 # }
 # close(zz)
-# data1<-read.csv("res1.csv", header=F)
-# #names(data1)<-c("Function", "Random", "Replication", "Parameter",  "Kernel", "BWMethod", "Method", "MISE", "MIAE", "BW")
-# names(data1)<-c("Function", "Random", "Replication", "Parameter", "Samples", "Kernel", "BWMethod", "Method", "MISE", "MIAE", "BW")
+data1<-read.csv("res1.csv", header=F)
 
+data1<-data
+#names(data1)<-c("Function", "Random", "Replication", "Parameter",  "Kernel", "BWMethod", "Method", "MISE", "MIAE", "BW")
+names(data1)<-c("Function", "Random", "Replication", "Parameter", "Samples", "Kernel", "BWMethod", "Method", "MISE", "MIAE", "BW")
+
+
+head(data1)
 
 #
 #
