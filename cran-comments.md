@@ -19,3 +19,4 @@ There are no reverse dependencies.
 This is a resubmission. In this version I have:
 
 * Added reference to DESCRIPTION Description section.
+* Fixed spelling error.
