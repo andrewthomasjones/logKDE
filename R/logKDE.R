@@ -1,3 +1,6 @@
+#'@importFrom pracma trapz
+NULL
+
 #' Kernel Density Estimates of strictly positive distributions.
 #'
 #' @description The function \code{logdensity} computes kernel density estimates (KDE) of strictly positive distributions by performing the KDE in the log domain and then transforming the result back again. The syntax and function structure is largely borrowed from the function \code{density} in package {stats}.
