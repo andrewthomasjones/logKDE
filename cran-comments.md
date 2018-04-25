@@ -10,8 +10,12 @@ There was 1 NOTE:
 
 New submission
 
+## Reverse dependencies
+
+There are no reverse dependencies.
+
 =======
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* Fixed the DESCRIPTION Description section.
+* Added reference to DESCRIPTION Description section.
