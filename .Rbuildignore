@@ -6,5 +6,4 @@ cran-comments.md
 plots.R
 testing_LogKDE.R
 TablesEtc.R
-^.*\.pdf$
 
