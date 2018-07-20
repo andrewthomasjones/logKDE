@@ -14,4 +14,5 @@ LinkingTo: Rcpp
 Imports: Rcpp, pracma
 SystemRequirements: C++11
 RoxygenNote: 6.0.1
-
+Suggests: R.rsp
+VignetteBuilder: R.rsp

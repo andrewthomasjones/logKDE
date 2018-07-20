@@ -18,11 +18,10 @@ The goal of logKDE is to efficiently compute Kernel Density Estimates in Log Dom
 
 ## Installation
 
-You can install logKDE from github with:
+You can install the latest stable build of logKDE from CRAN using the command below:
 
-```{r gh-installation, eval = FALSE}
-# install.packages("devtools")
-devtools::install_github("andrewthomasjones/logKDE")
+```{r gh-installation, eval = F}
+install.packages("logKDE", repos='http://cran.us.r-project.org')
 ```
 
 ## Example
@@ -30,12 +29,21 @@ devtools::install_github("andrewthomasjones/logKDE")
 This is a very basic example:
 
 ```{r example}
+## load library
+library(logKDE)
+
 ## strictly positive data
 x<-rchisq(1000,12)
-## get BW
-bw<-bw.logCV(x)
+
 ## do KDE
-y<-logdensity(x, bw=bw)
+y<-logdensity(x)
+
 ## what if we want it faster
-y_fft<-logdensity_fft(x, bw=bw) #density points are evenly spaced on scale
+y_fft<-logdensity_fft(x)
+
+## Plot the two KDEs
+plot(y)
+grid()
+plot(y_fft)
+grid()
 ```
