@@ -3,6 +3,10 @@
 
 # logKDE
 
+<img src="https://www.r-pkg.org/badges/version/logKDE"></img></a>
+[![Downloads from the RStudio CRAN
+mirror](http://cranlogs.r-pkg.org/badges/logKDE)](https://CRAN.R-project.org/package=logKDE)
+
 The goal of logKDE is to efficiently compute Kernel Density Estimates in
 Log Domain with a wide variety of kernels. In addition it provides two
 new BW estimators for use with strictly positive densities.
