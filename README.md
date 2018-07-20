@@ -30,7 +30,7 @@ This is a very basic example:
 library(logKDE)
 
 ## strictly positive data
-x<-rchisq(1000,12)
+x<-rchisq(100,12)
 
 ## do KDE
 y<-logdensity(x)
