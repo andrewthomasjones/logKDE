@@ -20,7 +20,7 @@ double epanechnikov(double x){
   double bound = std::sqrt(5.0);
   double y = 3*(5-(x*x))/(2*std::sqrt(5.0))*(x>(-1.0*bound))*(x<(1.0*bound));
   return y;
-
+}
 
 // [[Rcpp::export]]
 double gaussian(double x){
