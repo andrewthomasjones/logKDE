@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 ```
 
 # logKDE
-<img src="https://www.r-pkg.org/badges/version/logKDE"></img></a>
+<img src="http://www.r-pkg.org/badges/version-last-release/logKDE"></img></a>
 [![Downloads from the RStudio CRAN mirror](http://cranlogs.r-pkg.org/badges/logKDE)](https://CRAN.R-project.org/package=logKDE)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1317784.svg)](https://doi.org/10.5281/zenodo.1317784)
 
