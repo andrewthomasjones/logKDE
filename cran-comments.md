@@ -1,6 +1,6 @@
 ## Test environments
 * Mac OS X, R 3.4.4 (devel and release)
-* Windows 10, R 3.4.4
+* Windows 10, R 3.5.1
 * ubuntu 14.04, R 3.4.4
 
 ## R CMD check results
