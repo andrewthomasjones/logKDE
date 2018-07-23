@@ -17,8 +17,8 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 double epanechnikov(double x){
-  double bound = sqrt(5);
-  double y = 3*(5-(x*x))/(20*sqrt(5))*(x>(-1*bound))*(x<(1*bound));
+  double bound = std::sqrt(5);
+  double y = 3*(5-(x*x))/(20*std::sqrt(5))*(x>(-1*bound))*(x<(1*bound));
   return y;
 }
 
@@ -30,14 +30,14 @@ double gaussian(double x){
 
 // [[Rcpp::export]]
 double laplace(double x){
-  double val = 2/sqrt(2);
-  double y=val*std::exp(-1*(sqrt(2))*std::abs(x));
+  double val = 2/std::sqrt(2);
+  double y=val*std::exp(-1*(std::sqrt(2))*std::abs(x));
   return y;
 }
 
 // [[Rcpp::export]]
 double logistic(double x){
-  double bound = sqrt(3);
+  double bound = std::sqrt(3);
   double tmp = std::pow(std::cosh(M_PI*x/(2*bound)),-2.0);
   double y=(M_PI/(4*bound))*tmp;
   return y;
@@ -45,7 +45,7 @@ double logistic(double x){
 
 // [[Rcpp::export]]
 double triangular(double x){
-  double bound = sqrt(6);
+  double bound = std::sqrt(6);
   //double y = ((bound/6.0) -std::abs(x))*(x>(-1*bound))*(x<(1*bound));
   double y = ((1 - std::abs(x)/bound)/bound)*(std::abs(x)< bound);
   return y;
@@ -54,7 +54,7 @@ double triangular(double x){
 
 // [[Rcpp::export]]
 double uniform(double x){
-  double bound = sqrt(3);
+  double bound = std::sqrt(3);
   double y=(1/(2*bound))*(x>(-1*bound))*(x<(1*bound));
 
   return y;
@@ -117,7 +117,7 @@ double KDE_u(double x, std::vector<double> xi, double h){
 // double silverman(std::vector<double> x){
 //   accumulator_set<double, features<tag::variance(lazy)>> acc;
 //   for_each(x.begin(), x.end(), boost::bind<void> (boost::ref(acc), _1));
-//   return 1.06*sqrt(variance(acc))*std::pow((x.size()),-0.2);
+//   return 1.06*std::sqrt(variance(acc))*std::pow((x.size()),-0.2);
 //
 // }
 
