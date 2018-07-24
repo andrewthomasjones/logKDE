@@ -8,7 +8,7 @@ authors:
   orcid: 0000-0002-9958-432X
 - affiliation: 1
   name: Geoffrey J. McLachlan
-date: "23 July, 2018"
+date: "24 July, 2018"
 bibliography: paper.bib
 tags:
 - data visualization
@@ -44,7 +44,7 @@ There are two packages that are currently available, which share similar feature
 
 We believe that the key difference between `evmix` and `logKDE` is that of user experience. In `logKDE`, `logdensity` is designed to closely replicate the syntax and behavior of `density`. Thus, users who have learnt to use `density` will quickly make use of `logdensity` and its features. The syntax of `dbckden` is dramatically different to that of `density`. The function allows for many controls that are meant for higher level users and which may overwhelm someone who is only interested in conducting KDE as an exploratory tool. Therefore, we believe that `logdensity` provides an experience that is more user friendly and familiar than that of `dbckden`. 
 
-Users can obtain the latest build of `logKDE` on GitHub (https://github.com/andrewthomasjones/logKDE). The latest stable build can be obtained from CRAN (https://CRAN.R-project.org/package=logKDE), and an archival build can be obtained from Zenodo (https://doi.org/10.5281/zenodo.1317784). A detailed literature review, mathematical study, simulation study, and demonstration of the log-transformed KDE method appear in the vignette of the package, which can be accessed via the command `vignette('logKDE')`. Thorough descriptions of the package functions appear in the manual, which can be accessed at https://cran.r-project.org/web/packages/logKDE/logKDE.pdf. Bug reports and other feedback can be directed to the GitHub issues page (https://github.com/andrewthomasjones/logKDE/issues).
+Users can obtain the latest build of `logKDE` on GitHub (https://github.com/andrewthomasjones/logKDE). The latest stable build can be obtained from CRAN (https://CRAN.R-project.org/package=logKDE), and an archival build can be obtained from Zenodo (https://zenodo.org/record/1320105). A detailed literature review, mathematical study, simulation study, and demonstration of the log-transformed KDE method appear in the vignette of the package, which can be accessed via the command `vignette('logKDE')`. Thorough descriptions of the package functions appear in the manual, which can be accessed at https://cran.r-project.org/web/packages/logKDE/logKDE.pdf. Bug reports and other feedback can be directed to the GitHub issues page (https://github.com/andrewthomasjones/logKDE/issues).
 
 # Acknowledgements
 Hien Nguyen is personally funded under Australian Research Council (ARC) grant number DE170101134. Geoffrey McLachlan and Hien Nguyen are jointly funded by ARC grant number DP180101192.
