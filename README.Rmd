@@ -34,6 +34,8 @@ The following plugin bandwidth methods are also available:
 - unbiased cross-validated bandwidths in the positive domain (`bw = 'bw.logCV'`),
 - a Silverman-type rule-of-thumb that optimizes the kernel density estimator fit, compared to a log-normal density function (`bw = 'bw.logG'`).
 
+The `logdensity` and `logdensity_fft` functions also behave in the same way as `density`, when called within the `plot` function. The usual assortment of commands that apply to `plot` output objects can also be called.
+
 For a comprehensive review of the literature on positive-domain kernel density estimation, thorough descriptions of the mathematics relating to the methods that have been described, simulation results, and example applications of the `logKDE` package, please consult the package vignette. The vignette is available via the command `vignette('logKDE')`, once the package is installed.
 
 ## Installation
@@ -52,26 +54,42 @@ install.packages("logKDE", repos='http://cran.us.r-project.org')
 
 An archival build of `logKDE` is available at https://zenodo.org/record/1317784. Manual installation instructions can be found within the R installation and administration manual https://cran.r-project.org/doc/manuals/r-release/R-admin.html.
 
-## Example
+## Examples
 
-This is a very basic example:
+### Example 2
 
-```{r example}
-## load library
+In this first example, we showcase the variety of kernel functions that are available in the package. Here, log-transformed kernel density estimators are constructed using the `logdensity` function.
+
+```{r example2}
+## Load 'logKDE' library.
 library(logKDE)
 
-## strictly positive data
-x<-rchisq(100,12)
+## Set a random seed.
+set.seed(100)
 
-## do KDE
-y<-logdensity(x)
+## Generate strictly positive data.
+## Data are generated from a chi-squared distribution with 12 degrees of freedom.
+x <- rchisq(100,12)
 
-## what if we want it faster
-y_fft<-logdensity_fft(x)
+## Construct a log-KDE using the data, and using each of the available kernel functions
+logKDE1 <- logdensity(x,kernel = 'gaussian',from = 0,to = 30)
+logKDE2 <- logdensity(x,kernel = 'epanechnikov',from = 0,to = 30)
+logKDE3 <- logdensity(x,kernel = 'laplace',from = 0,to = 30)
+logKDE4 <- logdensity(x,kernel = 'logistic',from = 0,to = 30)
+logKDE5 <- logdensity(x,kernel = 'triangular',from = 0,to = 30)
+logKDE6 <- logdensity(x,kernel = 'uniform',from = 0,to = 30)
 
-## Plot the two KDEs
-plot(y)
-grid()
-plot(y_fft)
-grid()
+## Plot the true probability density function of the generative model.
+plot(c(0,30),c(0,0.1),type='n',xlab='x',ylab='Density',main='Example 2')
+curve(dchisq(x,12),from = 0,to = 30,add = T)
+
+## Plot each of the log-KDE functions, each in a different rainbow() colour.
+lines(logKDE1$x,logKDE1$y,col=rainbow(7)[1])
+lines(logKDE2$x,logKDE2$y,col=rainbow(7)[2])
+lines(logKDE3$x,logKDE3$y,col=rainbow(7)[3])
+lines(logKDE4$x,logKDE4$y,col=rainbow(7)[4])
+lines(logKDE5$x,logKDE5$y,col=rainbow(7)[5])
+lines(logKDE6$x,logKDE6$y,col=rainbow(7)[6])
+
+
 ```
