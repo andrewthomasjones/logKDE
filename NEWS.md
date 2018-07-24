@@ -1,3 +1,9 @@
+logKDE 0.3.1
+=============
+
+Detailed readme added and some bug fixes.
+
+
 logKDE 0.3.0
 =============
 
