@@ -265,7 +265,7 @@ logdensity_fft <-
                     laplace = (1/bw)*(sqrt(2)/2)*exp(-1*2^(0.5)*abs(kords)/bw),
                     logistic = {
                       a <- 2*bw*sqrt(3); ax <- abs(kords)
-                      (pi/2*a)*(cosh(pi*ax/a)^(-2))}
+                      (pi/2/a)*(cosh(pi*ax/a)^(-2))}
 
     )
 
@@ -318,9 +318,9 @@ BinDist <- function(x, w, lo, hi, n){
 #'
 #'@export
 bw.logG<-function(x){
- s<-stats::sd(x)
+ s<-stats::sd(log(x))
  n<-length(x)
- bw = ((16*exp(0.25*s^2))/(s^4 + 4*s^2 + 12))^(0.2)*(s/(n^0.2))
+ bw = (16*(exp(0.25*s^2))/(s^4 + 4*s^2 + 12))^(0.2)*(s/(n^0.2))
  if(!is.finite(bw)){
    bw<-stats::bw.nrd0(log(x))
  }

@@ -1,7 +1,7 @@
 Package: logKDE
 Type: Package
 Title: Computing Log-Transformed Kernel Density Estimates for Positive Data
-Version: 0.3.0
+Version: 0.3.1
 Date: 2018-07-20
 Author: Hien D. Nguyen, Andrew T. Jones, and Geoffrey J. McLachlan
 Maintainer: Andrew Thomas Jones <andrewthomasjones@gmail.com>
