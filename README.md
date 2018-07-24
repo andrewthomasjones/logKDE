@@ -6,7 +6,7 @@
 <img src="http://www.r-pkg.org/badges/version-last-release/logKDE"></img></a>
 [![Downloads from the RStudio CRAN
 mirror](http://cranlogs.r-pkg.org/badges/logKDE)](https://CRAN.R-project.org/package=logKDE)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1317784.svg)](https://doi.org/10.5281/zenodo.1317784)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1320105.svg)](https://doi.org/10.5281/zenodo.1320105)
 
 The goal of logKDE is to provide a set of functions for kernel density
 estimation on the positive domain, using log-kernel density functions,
