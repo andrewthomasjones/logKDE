@@ -218,4 +218,4 @@ grid()
 
 ## Bug reporting and contributions
 
-Thank you for your interest in `logKDE`. If you happen to find any bugs in the program, then please report them on the Issues page (https://github.com/andrewthomasjones/logKDE/issues). Furthermore, if you would like to make a contribution to the software, then please forward a pull request to the owner of the repository.
+Thank you for your interest in `logKDE`. If you happen to find any bugs in the program, then please report them on the Issues page (https://github.com/andrewthomasjones/logKDE/issues). Support can also be sought on this page. Furthermore, if you would like to make a contribution to the software, then please forward a pull request to the owner of the repository.
