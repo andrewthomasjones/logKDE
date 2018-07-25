@@ -52,7 +52,7 @@ The latest stable build of `logKDE` can be obtain from CRAN via the command:
 install.packages("logKDE", repos='http://cran.us.r-project.org')
 ```
 
-An archival build of `logKDE` is available at https://zenodo.org/record/1317784. Manual installation instructions can be found within the R installation and administration manual https://cran.r-project.org/doc/manuals/r-release/R-admin.html.
+An archival build of `logKDE` is available at https://zenodo.org/record/1317784. Manual installation instructions can be found within the *R* installation and administration manual https://cran.r-project.org/doc/manuals/r-release/R-admin.html.
 
 ## Examples
 
@@ -168,7 +168,7 @@ lines(logKDE6$x,logKDE6$y,col = rainbow(7)[6])
 grid()
 ```
 
-We observe that the `logdensity_fft` outputs are noticiably smoother than those of `logdensity`. This is because fast Fourier transformations (FFT) only yield evaluations kernel density estimates at discrete points, and the regions between these discrete points are approximated via a linear approximator, namely using the `approx` function. This is the same evaluation technique as that which is used in the function `density`. Additionally the FFT approximation points are evenly space on the real line, whereas those used for `logdensity` are evenly spaced on a log scale.
+We observe that the `logdensity_fft` outputs are noticiably smoother than those of `logdensity`. This is because fast Fourier transformations (FFT) only yield kernel density estimates at discrete points, and the regions between these discrete points are approximated via a linear approximator, namely using the `approx` function. This is the same evaluation technique as that which is used in the function `density`. Additionally the FFT approximation points are evenly space on the real line, whereas those used for `logdensity` are evenly spaced on a log scale.
 
 ---
 

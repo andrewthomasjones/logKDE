@@ -239,13 +239,13 @@ grid()
 
 We observe that the `logdensity_fft` outputs are noticiably smoother
 than those of `logdensity`. This is because fast Fourier transformations
-(FFT) only yield evaluations kernel density estimates at discrete
-points, and the regions between these discrete points are approximated
-via a linear approximator, namely using the `approx` function. This is
-the same evaluation technique as that which is used in the function
-`density`. Additionally the FFT approximation points are evenly space on
-the real line, whereas those used for `logdensity` are evenly spaced on
-a log scale.
+(FFT) only yield kernel density estimates at discrete points, and the
+regions between these discrete points are approximated via a linear
+approximator, namely using the `approx` function. This is the same
+evaluation technique as that which is used in the function `density`.
+Additionally the FFT approximation points are evenly space on the real
+line, whereas those used for `logdensity` are evenly spaced on a log
+scale.
 
 -----
 
