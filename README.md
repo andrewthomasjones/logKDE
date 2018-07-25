@@ -72,7 +72,7 @@ install.packages("logKDE", repos='http://cran.us.r-project.org')
 
 An archival build of `logKDE` is available at
 <https://zenodo.org/record/1317784>. Manual installation instructions
-can be found within the R installation and administration manual
+can be found within the *R* installation and administration manual
 <https://cran.r-project.org/doc/manuals/r-release/R-admin.html>.
 
 ## Examples
