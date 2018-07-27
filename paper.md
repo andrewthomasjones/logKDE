@@ -1,5 +1,12 @@
 ---
 title: 'logKDE: log-transformed kernel density estimation'
+tags:
+- data visualization
+- exploratory data analysis
+- non-parametric
+- positive data
+- probability density function
+- R
 authors:
 - affiliation: 1
   name: Andrew T. Jones
@@ -10,13 +17,6 @@ authors:
   name: Geoffrey J. McLachlan
 date: "24 July, 2018"
 bibliography: paper.bib
-tags:
-- data visualization
-- exploratory data analysis
-- non-parametric
-- positive data
-- probability density function
-- R
 affiliations:
 - index: 1
   name: School of Mathematics and Physics, University of Queensland, St. Lucia 4072,
@@ -32,7 +32,7 @@ Exploratory data analysis, as proposed in @tukey1977exploratory, is an important
 
 Since its introduction in the pioneering works of @rosenblatt1956remarks and @parzen1962estimation, the method of kernel density estimation (KDE) has become among one of the most popular methods for estimation, interpolation, and visualization of probability density functions (PDFs), due to its effectiveness and simplicity. The manuscripts of @silverman2018density and @wand1994kernel provide thorough treatments on the topic of KDE.
 
-In the base `stats` package of the *R* programming environment [@R2016], univariate KDE can be conducted via the function, `density`. The function, `density`, is often taught in introductory *R* classes and presented in popular textbooks. See for example Section 5.6 of @venables1228bd, Section 7.4 of @trosset2009introduction, Section 6.3 of @keen2010graphics, Section 2.1 of @maindonald2010data, and Section 2.3 @verzani2014using.
+In the base `stats` package of the *R* programming environment [@R2016], univariate KDE can be conducted via the function, `density`. The function, `density`, is often taught in introductory *R* classes and presented in popular textbooks. See for example Section 5.6 of @venables1228bd, Section 7.4 of @trosset2009introduction, Section 6.3 of @keen2010graphics, Section 2.1 of @maindonald2010data, and Section 2.3 of @verzani2014using.
 
 The KDE method implemented in `density` is the standard KDE technique for estimation of univariate PDFs, assuming that the data are real-valued. Unfortunately, `density` is often used to analyze data that are not real-valued, such as income data, which are positive-valued [cf, @charpentier2015log]. The use of `density` in the case of positive-valued data causes the obtained estimator of the PDF that characterizes the data to not integrate to one, over the positive domain. This implies that it will provide an incorrect specification of the data generating process.
 
