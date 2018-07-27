@@ -260,7 +260,7 @@ estimators are constructed using the `logdensity` function.
 library(logKDE)
 
 ## Set a random seed.
-set.seed(10)
+set.seed(1)
 
 ## Generate strictly positive data.
 ## Data are generated from a chi-squared distribution with 12 degrees of freedom.
