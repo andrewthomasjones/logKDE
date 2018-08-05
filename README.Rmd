@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 <img src="http://www.r-pkg.org/badges/version-last-release/logKDE"></img></a>
 [![Downloads from the RStudio CRAN mirror](http://cranlogs.r-pkg.org/badges/logKDE)](https://CRAN.R-project.org/package=logKDE)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1320105.svg)](https://doi.org/10.5281/zenodo.1320105)
+[![status](http://joss.theoj.org/papers/90b724137e31d7836da43935c6b10648/status.svg)](http://joss.theoj.org/papers/90b724137e31d7836da43935c6b10648)
 
 The goal of logKDE is to provide a set of functions for kernel density estimation on the positive domain, using log-kernel density functions, for the *R* programming environment. The main functions of the package are the `logdensity` and `logdensity_fft` functions. The choice of functional syntax was made to resemble those of the `density` function, for conducting kernel density estimation on the real domain. The `logdensity` function conducts density estimation, via first principle computations, whereas `logdensity_fft` utilizes fast-Fourier transformation in order to speed up computation. The use of `Rcpp` guarantees that both methods are sufficiently fast for large data scenarios.
 
