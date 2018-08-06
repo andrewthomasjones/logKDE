@@ -15,6 +15,10 @@ NULL
 #' @param cut by default, the values of from and to are cut bandwidths beyond the extremes of the data
 #' @param na.rm logical; if TRUE, missing values are removed from x. If FALSE any missing values cause an error.
 #' @return An object with class "density". See \code{help(density)} for details.
+#' @references
+#' Charpentier, A., & Flachaire, E. (2015). Log-transform kernel density estimation of income distribution. L'Actualite economique, 91(1-2), 141-159.
+#'
+#' Wand, M. P., Marron, J. S., & Ruppert, D. (1991). Transformations in density estimation. Journal of the American Statistical Association, 86(414), 343-353.
 #' @seealso \code{\link{density}}, \code{\link{plot.density}}, \code{\link{logdensity_fft}}, \code{\link{bw.nrd}}, \code{\link{bw.logCV}},  \code{\link{bw.logG}}.
 #'
 #' @examples
@@ -140,6 +144,12 @@ logdensity <- function(x, bw = "nrd0", adjust = 1,
 #' @param cut by default, the values of from and to are cut bandwidths beyond the extremes of the data
 #' @param na.rm logical; if TRUE, missing values are removed from x. If FALSE any missing values cause an error.
 #' @return An object with class "density". See \code{help(density)} for details.
+#' @references
+#' Charpentier, A., & Flachaire, E. (2015). Log-transform kernel density estimation of income distribution. L'Actualite economique, 91(1-2), 141-159.
+#'
+#' Cooley, J. W., & Tukey, J. W. (1965). An algorithm for the machine calculation of complex Fourier series. Mathematics of computation, 19(90), 297-301.
+#'
+#' Wand, M. P., Marron, J. S., & Ruppert, D. (1991). Transformations in density estimation. Journal of the American Statistical Association, 86(414), 343-353.
 #' @seealso \code{\link{density}}, \code{\link{plot.density}}, \code{\link{logdensity}}, \code{\link{bw.nrd}}, \code{\link{bw.logCV}},  \code{\link{bw.logG}}.
 #'
 #'@examples
@@ -312,6 +322,10 @@ BinDist <- function(x, w, lo, hi, n){
 #' Computes bandwidth for log domain KDE using the Silverman rule.
 #'
 #' @param x numeric vector of the data. Must be strictly positive, will be log transformed during estimation.
+#' @references
+#' Silverman, B. W. (1986). Density estimation for statistics and data analysis. Monographs on Statistics and Applied Probability. 26.
+#'
+#' Wand, M. P., Marron, J. S., & Ruppert, D. (1991). Transformations in density estimation. Journal of the American Statistical Association, 86(414), 343-353.
 #' @return bw the optimal bandwidth.
 #' @examples
 #' bw.logG(rchisq(100,10))
@@ -320,7 +334,7 @@ BinDist <- function(x, w, lo, hi, n){
 bw.logG<-function(x){
  s<-stats::sd(log(x))
  n<-length(x)
- bw = (16*(exp(0.25*s^2))/(s^4 + 4*s^2 + 12))^(0.2)*(s/(n^0.2))
+ bw = (8*(exp(0.25*s^2))/(s^4 + 4*s^2 + 12))^(0.2)*(s/(n^0.2))
  if(!is.finite(bw)){
    bw<-stats::bw.nrd0(log(x))
  }
@@ -334,6 +348,10 @@ bw.logG<-function(x){
 #' @param x numeric vector of the data. Must be strictly positive, will be log transformed during estimation.
 #' @param grid number of points used for BW selection CV grid.
 #' @param NB number of points at which to estimate the KDE at during the CV loop.
+#' @references
+#' Silverman, B. W. (1986). Density estimation for statistics and data analysis. Monographs on Statistics and Applied Probability. 26.
+#'
+#' Stone, C. J. (1984). An asymptotically optimal window selection rule for kernel density estimates. The Annals of Statistics, 12(4), 1285-1297.
 #' @return bw the optimal least squares CV bandwidth.
 #' @examples
 #' bw.logCV(rchisq(100,10), grid=21, NB=512)
