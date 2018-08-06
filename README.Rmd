@@ -217,6 +217,23 @@ lines(logKDE8$x,logKDE8$y,col = rainbow(9)[8])
 grid()
 ```
 
+## Unit testing
+
+Using the package `testthat`, we have conducted the following unit test for the GitHub build, on the date: `r format(Sys.time(), '%d %B, %Y')`. The testing files are contained in the [tests](https://github.com/andrewthomasjones/logKDE/tree/master/tests) folder of the respository.
+
+```{r unittest}
+
+
+## Load 'logKDE' library.
+library(logKDE)
+
+## Load 'testthat' library.
+library(testthat)
+
+## Test 'logKDE'.
+test_package('logKDE')
+```
+
 ## Bug reporting and contributions
 
 Thank you for your interest in `logKDE`. If you happen to find any bugs in the program, then please report them on the Issues page (https://github.com/andrewthomasjones/logKDE/issues). Support can also be sought on this page. Furthermore, if you would like to make a contribution to the software, then please forward a pull request to the owner of the repository.

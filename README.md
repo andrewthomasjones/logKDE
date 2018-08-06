@@ -300,6 +300,29 @@ grid()
 
 ![](man/figures/README-example4-1.png)<!-- -->
 
+## Unit testing
+
+Using the package `testthat`, we have conducted the following unit test
+for the GitHub build, on the date: 06 August, 2018. The testing files
+are contained in the
+[tests](https://github.com/andrewthomasjones/logKDE/tree/master/tests)
+folder of the respository.
+
+``` r
+
+
+## Load 'logKDE' library.
+library(logKDE)
+
+## Load 'testthat' library.
+library(testthat)
+
+## Test 'logKDE'.
+test_package('logKDE')
+#> ══ testthat results  ════════════════════════════════════════════════════════════════════════════════════════════════════
+#> OK: 74 SKIPPED: 0 FAILED: 0
+```
+
 ## Bug reporting and contributions
 
 Thank you for your interest in `logKDE`. If you happen to find any bugs
