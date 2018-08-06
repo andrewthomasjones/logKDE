@@ -8,3 +8,4 @@ TablesEtc.R
 paper.*
 license.txt
 numericalsimulations_LogKDE.R
+.travis.yml
