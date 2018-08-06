@@ -23,3 +23,8 @@ Computes least squares cross-validation (CV) bandwidth (BW) for log domain KDE.
 bw.logCV(rchisq(100,10), grid=21, NB=512)
 
 }
+\references{
+Silverman, B. W. (1986). Density estimation for statistics and data analysis. Monographs on Statistics and Applied Probability. 26.
+
+Stone, C. J. (1984). An asymptotically optimal window selection rule for kernel density estimates. The Annals of Statistics, 12(4), 1285-1297.
+}

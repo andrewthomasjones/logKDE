@@ -36,6 +36,11 @@ The function \code{logdensity} computes kernel density estimates (KDE) of strict
 logdensity(abs(rnorm(100)), from =.1, to=2, kernel='triangular')
 
 }
+\references{
+Charpentier, A., & Flachaire, E. (2015). Log-transform kernel density estimation of income distribution. L'Actualite economique, 91(1-2), 141-159.
+
+Wand, M. P., Marron, J. S., & Ruppert, D. (1991). Transformations in density estimation. Journal of the American Statistical Association, 86(414), 343-353.
+}
 \seealso{
 \code{\link{density}}, \code{\link{plot.density}}, \code{\link{logdensity_fft}}, \code{\link{bw.nrd}}, \code{\link{bw.logCV}},  \code{\link{bw.logG}}.
 }

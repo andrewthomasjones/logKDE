@@ -36,6 +36,13 @@ The function \code{logdensity_fft} computes kernel density estimates (KDE) of st
 logdensity_fft(abs(rnorm(100)), from =0.01, to= 2.5, kernel = 'logistic')
 
 }
+\references{
+Charpentier, A., & Flachaire, E. (2015). Log-transform kernel density estimation of income distribution. L'Actualite economique, 91(1-2), 141-159.
+
+Cooley, J. W., & Tukey, J. W. (1965). An algorithm for the machine calculation of complex Fourier series. Mathematics of computation, 19(90), 297-301.
+
+Wand, M. P., Marron, J. S., & Ruppert, D. (1991). Transformations in density estimation. Journal of the American Statistical Association, 86(414), 343-353.
+}
 \seealso{
 \code{\link{density}}, \code{\link{plot.density}}, \code{\link{logdensity}}, \code{\link{bw.nrd}}, \code{\link{bw.logCV}},  \code{\link{bw.logG}}.
 }

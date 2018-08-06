@@ -19,3 +19,8 @@ Computes bandwidth for log domain KDE using the Silverman rule.
 bw.logG(rchisq(100,10))
 
 }
+\references{
+Silverman, B. W. (1986). Density estimation for statistics and data analysis. Monographs on Statistics and Applied Probability. 26.
+
+Wand, M. P., Marron, J. S., & Ruppert, D. (1991). Transformations in density estimation. Journal of the American Statistical Association, 86(414), 343-353.
+}
