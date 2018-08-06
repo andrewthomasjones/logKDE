@@ -17,7 +17,7 @@ test_that("Check that the default settings of logdensity_fft generates a 'densit
 test_that("Check that different kernel inputs for logdensity_fft generates a 'density' object.", {
 
   # Generate some random data
-  SAMPLE1000 <- rchisq(100,10)
+  SAMPLE100 <- rchisq(100,10)
 
   # Check that logdensity_fft produces a 'density' object for the kernel
   expect_is(logdensity_fft(SAMPLE100,kernel = 'epanechnikov'), 'density')
