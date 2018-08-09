@@ -6,7 +6,8 @@ Date: 2018-08-09
 Author: Hien D. Nguyen, Andrew T. Jones, and Geoffrey J. McLachlan
 Maintainer: Andrew Thomas Jones <andrewthomasjones@gmail.com>
 Description: Computes log-transformed kernel density estimates for positive data using a variety of kernels. It follows the methods
-    described in Jones, Nguyen and McLachlan (2018) <doi:10.21105/joss.008705>.
+    described in Jones, Nguyen and McLachlan (2018) <doi:10.21105/joss.00870>.
+    
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
