@@ -3,7 +3,7 @@ logKDE 0.3.1
 
 Improved documentation.
 Updated references.
-
+Unit testing added.
 
 logKDE 0.3.1
 =============
