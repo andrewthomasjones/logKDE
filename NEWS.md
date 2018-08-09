@@ -1,4 +1,4 @@
-logKDE 0.3.1
+logKDE 0.3.2
 =============
 
 Improved documentation.
