@@ -40,7 +40,7 @@ logdensity(
 An object with class "density". See \code{help(density)} for details.
 }
 \description{
-The function \code{logdensity} computes kernel density estimates (KDE) of strictly positive distributions by performing the KDE in the log domain and then transforming the result back again. The syntax and function structure is largely borrowed from the function \code{density} in package {stats}.
+The function \code{logdensity} computes kernel density estimates (KDE) of strictly positive distributions by performing the KDE in the log domain and then transforming the result back again. The syntax and function structure is largely borrowed from the function \code{density} in package \pkg{stats}.
 }
 \examples{
 logdensity(abs(rnorm(100)), from =.1, to=2, kernel='triangular')

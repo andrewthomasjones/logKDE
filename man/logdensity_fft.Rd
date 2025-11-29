@@ -40,7 +40,7 @@ logdensity_fft(
 An object with class "density". See \code{help(density)} for details.
 }
 \description{
-The function \code{logdensity_fft} computes kernel density estimates (KDE) of strictly positive distributions by performing the KDE via fast fourier transform utilizing the \code{fft} function. The syntax and function structure is largely borrowed from the function \code{density} in package {stats}.
+The function \code{logdensity_fft} computes kernel density estimates (KDE) of strictly positive distributions by performing the KDE via fast fourier transform utilizing the \code{fft} function. The syntax and function structure is largely borrowed from the function \code{density} in package \pkg{stats}.
 }
 \examples{
 logdensity_fft(abs(rnorm(100)), from =0.01, to= 2.5, kernel = 'logistic')

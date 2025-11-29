@@ -3,7 +3,7 @@ NULL
 
 #' Kernel Density Estimates of strictly positive distributions.
 #'
-#' @description The function \code{logdensity} computes kernel density estimates (KDE) of strictly positive distributions by performing the KDE in the log domain and then transforming the result back again. The syntax and function structure is largely borrowed from the function \code{density} in package {stats}.
+#' @description The function \code{logdensity} computes kernel density estimates (KDE) of strictly positive distributions by performing the KDE in the log domain and then transforming the result back again. The syntax and function structure is largely borrowed from the function \code{density} in package \pkg{stats}.
 #'
 #' @param x the data from which the estimate is to be computed.
 #' @param bw the smoothing bandwidth to be used. Can also be can also be a character string giving a rule to choose the bandwidth. Like \code{density} defaults to "nrd0". All options in  \code{help(bw.nrd)} are available as well as \code{"bw.logCV"} and \code{"bw.logG"}.
@@ -132,7 +132,7 @@ logdensity <- function(x, bw = "nrd0", adjust = 1,
 #'
 #' Kernel Density Estimates of strictly positive distributions using FFT.
 #'
-#' @description The function \code{logdensity_fft} computes kernel density estimates (KDE) of strictly positive distributions by performing the KDE via fast fourier transform utilizing the \code{fft} function. The syntax and function structure is largely borrowed from the function \code{density} in package {stats}.
+#' @description The function \code{logdensity_fft} computes kernel density estimates (KDE) of strictly positive distributions by performing the KDE via fast fourier transform utilizing the \code{fft} function. The syntax and function structure is largely borrowed from the function \code{density} in package \pkg{stats}.
 #'
 #' @param x the data from which the estimate is to be computed.
 #' @param bw the smoothing bandwidth to be used. Can also be can also be a character string giving a rule to choose the bandwidth. Like \code{density} defaults to "nrd0". All options in  \code{help(bw.nrd)} are available as well as \code{"bw.logCV"} and \code{"bw.logG"}.
