@@ -8,8 +8,6 @@
 mirror](http://cranlogs.r-pkg.org/badges/logKDE)](https://CRAN.R-project.org/package=logKDE)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1339352.svg)](https://doi.org/10.5281/zenodo.1339352)
 [![DOI](http://joss.theoj.org/papers/10.21105/joss.00870/status.svg)](https://doi.org/10.21105/joss.00870)
-[![Build
-Status](https://travis-ci.org/andrewthomasjones/logKDE.svg?branch=master)](https://travis-ci.org/andrewthomasjones/logKDE)
 
 The goal of logKDE is to provide a set of functions for kernel density
 estimation on the positive domain, using log-kernel density functions,
@@ -29,21 +27,21 @@ to use log-normal kernel functions (`kernel = 'gaussian'`) and
 Silverman’s rule-of-thumb bandwidth, applied to log-transformed data
 (`bw = 'nrd0'`). However, the following kernels are also available:
 
-  - log-Epanechnikov (`kernel = 'epanechnikov'`),
-  - log-Laplace (`kernel = 'laplace'`),
-  - log-logistic (`kernel = 'logistic'`),
-  - log-triangular (`kernel = 'triangular'`),
-  - log-uniform (`kernel = 'uniform'`).
+- log-Epanechnikov (`kernel = 'epanechnikov'`),
+- log-Laplace (`kernel = 'laplace'`),
+- log-logistic (`kernel = 'logistic'`),
+- log-triangular (`kernel = 'triangular'`),
+- log-uniform (`kernel = 'uniform'`).
 
 The following plugin bandwidth methods are also available:
 
-  - all of the methods that available for density, applied to
-    log-transformed data (see `?bw.nrd` regarding the options),
-  - unbiased cross-validated bandwidths in the positive domain (`bw =
-    'logcv'`),
-  - a Silverman-type rule-of-thumb that optimizes the kernel density
-    estimator fit, compared to a log-normal density function (`bw =
-    'logg'`).
+- all of the methods that available for density, applied to
+  log-transformed data (see `?bw.nrd` regarding the options),
+- unbiased cross-validated bandwidths in the positive domain
+  (`bw = 'logcv'`),
+- a Silverman-type rule-of-thumb that optimizes the kernel density
+  estimator fit, compared to a log-normal density function
+  (`bw = 'logg'`).
 
 The `logdensity` and `logdensity_fft` functions also behave in the same
 way as `density`, when called within the `plot` function. The usual
@@ -106,12 +104,12 @@ density(x)
 #> Data: x (100 obs.);  Bandwidth 'bw' = 1.018
 #> 
 #>        x                y            
-#>  Min.   :-2.366   Min.   :0.0000475  
-#>  1st Qu.: 2.547   1st Qu.:0.0072263  
-#>  Median : 7.459   Median :0.0331904  
-#>  Mean   : 7.459   Mean   :0.0508396  
-#>  3rd Qu.:12.372   3rd Qu.:0.1013289  
-#>  Max.   :17.284   Max.   :0.1312107
+#>  Min.   :-2.366   Min.   :4.707e-05  
+#>  1st Qu.: 2.547   1st Qu.:7.209e-03  
+#>  Median : 7.459   Median :3.315e-02  
+#>  Mean   : 7.459   Mean   :5.079e-02  
+#>  3rd Qu.:12.372   3rd Qu.:1.012e-01  
+#>  Max.   :17.284   Max.   :1.311e-01
 
 ## Construct and print the output of the function 'logdensity'.
 logdensity(x)
@@ -150,7 +148,7 @@ log-transformed kernel density estimator that is produced by
 `logdensity` only assigns positive probability to positive values, and
 is thus bona fide in this estimation scenario.
 
------
+------------------------------------------------------------------------
 
 ### Example 2
 
@@ -195,7 +193,7 @@ grid()
 
 ![](man/figures/README-example2-1.png)<!-- -->
 
------
+------------------------------------------------------------------------
 
 ### Example 3
 
@@ -250,7 +248,7 @@ Additionally the FFT approximation points are evenly space on the real
 line, whereas those used for `logdensity` are evenly spaced on a log
 scale.
 
------
+------------------------------------------------------------------------
 
 ### Example 4
 
@@ -305,7 +303,7 @@ grid()
 ## Unit testing
 
 Using the package `testthat`, we have conducted the following unit test
-for the GitHub build, on the date: 06 August, 2018. The testing files
+for the GitHub build, on the date: 29 November, 2025. The testing files
 are contained in the
 [tests](https://github.com/andrewthomasjones/logKDE/tree/master/tests)
 folder of the respository.
@@ -318,11 +316,11 @@ library(logKDE)
 
 ## Load 'testthat' library.
 library(testthat)
+#> Warning: package 'testthat' was built under R version 4.4.1
 
 ## Test 'logKDE'.
 test_package('logKDE')
-#> ══ testthat results  ════════════════════════════════════════════════════════════════════════════════════════════════════
-#> OK: 74 SKIPPED: 0 FAILED: 0
+#> No installed testthat tests found for logKDE
 ```
 
 ## Bug reporting and contributions
