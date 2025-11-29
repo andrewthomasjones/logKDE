@@ -22,7 +22,6 @@ Encoding: UTF-8
 LazyData: true
 LinkingTo: Rcpp
 Imports: Rcpp, pracma
-SystemRequirements: C++11
 RoxygenNote: 7.3.3
 Suggests: R.rsp,
     testthat
