@@ -4,8 +4,18 @@
 \alias{logdensity_fft}
 \title{Kernel Density Estimates of strictly positive distributions using FFT.}
 \usage{
-logdensity_fft(x, bw = "nrd0", adjust = 1, kernel = "gaussian",
-  weights = NULL, n = 512, from, to, cut = log(3), na.rm = FALSE)
+logdensity_fft(
+  x,
+  bw = "nrd0",
+  adjust = 1,
+  kernel = "gaussian",
+  weights = NULL,
+  n = 512,
+  from,
+  to,
+  cut = log(3),
+  na.rm = FALSE
+)
 }
 \arguments{
 \item{x}{the data from which the estimate is to be computed.}

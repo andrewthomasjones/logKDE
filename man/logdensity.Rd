@@ -4,8 +4,18 @@
 \alias{logdensity}
 \title{Kernel Density Estimates of strictly positive distributions.}
 \usage{
-logdensity(x, bw = "nrd0", adjust = 1, kernel = "gaussian",
-  weights = NULL, n = 512, from, to, cut = 3, na.rm = FALSE)
+logdensity(
+  x,
+  bw = "nrd0",
+  adjust = 1,
+  kernel = "gaussian",
+  weights = NULL,
+  n = 512,
+  from,
+  to,
+  cut = 3,
+  na.rm = FALSE
+)
 }
 \arguments{
 \item{x}{the data from which the estimate is to be computed.}
