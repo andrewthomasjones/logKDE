@@ -1,13 +1,24 @@
 ## Test environments
-* Mac OS X, R 3.4.4 (devel and release)
-* Windows 10, R 3.5.1
-* ubuntu 14.04, R 3.5.1
+
+* local MacOS 15.7 install, R 4.4.0
+* github actions macOS 15.7.2, R 4.5.2 (2025-10-31)
+* github actions Ubuntu 24.04.3 LTS, R 4.5.2 (2025-10-31)
+* github actions Ubuntu 24.04.3 LTS, R Under development (unstable) (2025-11-27 r89071)
+* github actions Ubuntu 24.04.3 LTS, 4.4.3 (2025-02-28)
+* github actions Windows Server 2022 x64 (build 26100), R 4.5.2 (2025-10-31)
+* winbuilder Windows Server 2022 x64 (build 20348), R Under development (unstable) (2025-11-28 r89073 ucrt)
 
 ## R CMD check results
-There were no ERRORs or WARNINGs.
 
-## Reverse dependencies
+0 errors | 0 warnings | 0 notes
 
-There are no reverse dependencies.
+## revdepcheck results
+
+We checked 1 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 0 packages
+
+
 
 
