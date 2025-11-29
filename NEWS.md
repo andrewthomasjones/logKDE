@@ -1,3 +1,9 @@
+logKDE 0.3.3
+=============
+Removed C++11 dependencies.
+Fixed minor issue with documentation that was generating CRAN Note.
+Updated to modern authorship style in DESCRIPTION.
+
 logKDE 0.3.2
 =============
 
