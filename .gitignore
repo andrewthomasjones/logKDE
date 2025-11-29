@@ -5,3 +5,4 @@
 *.jpeg
 *.pdf
 .DS_Store
+^revdep$

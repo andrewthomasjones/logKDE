@@ -320,7 +320,7 @@ library(testthat)
 
 ## Test 'logKDE'.
 test_package('logKDE')
-#> No installed testthat tests found for logKDE
+#> [ FAIL 0 | WARN 0 | SKIP 0 | PASS 74 ]
 ```
 
 ## Bug reporting and contributions

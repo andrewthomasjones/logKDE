@@ -2,7 +2,7 @@ Package: logKDE
 Type: Package
 Title: Computing Log-Transformed Kernel Density Estimates for Positive Data
 Version: 0.3.3
-Date: 2018-08-09
+Date: 2025-11-29
 Authors@R: c(person(given = c("Hien", "D."),
                       family = "Nguyen",
                       role = "aut"),

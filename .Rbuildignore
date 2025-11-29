@@ -10,3 +10,4 @@ license.txt
 numericalsimulations_LogKDE.R
 .travis.yml
 ^\.github$
+^revdep$
