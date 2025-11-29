@@ -23,7 +23,7 @@ LazyData: true
 LinkingTo: Rcpp
 Imports: Rcpp, pracma
 SystemRequirements: C++11
-RoxygenNote: 6.0.1
+RoxygenNote: 7.3.3
 Suggests: R.rsp,
     testthat
 VignetteBuilder: R.rsp
