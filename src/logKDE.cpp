@@ -1,5 +1,4 @@
 // [[Rcpp::depends(Rcpp)]]
-// [[Rcpp::plugins("cpp11")]]
 
 
 //'@importFrom Rcpp sourceCpp
