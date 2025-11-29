@@ -11,3 +11,4 @@ numericalsimulations_LogKDE.R
 .travis.yml
 ^\.github$
 ^revdep$
+^CRAN-SUBMISSION$

@@ -19,7 +19,6 @@ Authors@R: c(person(given = c("Hien", "D."),
 Description: Computes log-transformed kernel density estimates for positive data using a variety of kernels. It follows the methods described in Jones, Nguyen and McLachlan (2018) <doi:10.21105/joss.00870>.
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
 LinkingTo: Rcpp
 Imports: Rcpp, pracma
 RoxygenNote: 7.3.3
