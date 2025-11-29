@@ -25,3 +25,4 @@ RoxygenNote: 7.3.3
 Suggests: R.rsp,
     testthat
 VignetteBuilder: R.rsp
+URL: http://andrewthomasjones.com.au/logKDE/

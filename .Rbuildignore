@@ -12,3 +12,6 @@ numericalsimulations_LogKDE.R
 ^\.github$
 ^revdep$
 ^CRAN-SUBMISSION$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
